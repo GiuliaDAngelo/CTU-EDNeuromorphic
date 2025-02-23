@@ -134,5 +134,35 @@ podcast.  This podcast delves into the intersection of neuroscience, robotics, a
 
 
 # Tutorial Overview
+## Tutorial 1 (A) - Time Window for Event-Based Data Visualization  
 
+This script demonstrates how to load and visualize event-based data from a Dynamic Vision Sensor (DVS). Unlike conventional cameras, a DVS detects brightness changes at each pixel asynchronously, providing high temporal resolution. Using the `importIitYarp` function from the Bimvee library, the script extracts event coordinates, timestamps, and polarities. Events are processed within fixed time windows, and the visualization updates dynamically in real time with OpenCV, showcasing the benefits of event-based vision for dynamic scene analysis.  
 
+[Tutorial1-EventBasedDataTimeWindow.py](Tutorial1-EventBasedDataTimeWindow.py)  
+
+![DVSdata](Images/attdata.png)  
+---
+
+## Tutorial 1 (B) - Sliding Window for Event-Based Data Visualization  
+
+This script extends time-windowed visualization by continuously updating the displayed events using a sliding window approach. Events from a DVS are loaded with Bimvee, processed within an initial time window, and updated dynamically by removing outdated events while adding new ones. ON and OFF events are tracked separately, and OpenCV provides real-time visualization. This approach is useful for understanding motion encoding and scene changes in neuromorphic cameras.  
+
+[Tutorial1-EventBasedDataSlidingWindow.py](Tutorial1-EventBasedDataSlidingWindow.py)  
+
+---
+
+## Tutorial 1 (C) - Fixed Event Count for Event-Based Data Visualization  
+
+Instead of a time-based window, this script processes a fixed number of events per visualization cycle. It loads DVS data, extracts event properties, and updates the display in real time, ensuring a consistent event sampling rate. This method is useful for applications requiring precise event control, such as neuromorphic computing, object tracking, and motion analysis.  
+
+[Tutorial1-EventBasedDataNumberEvents.py](Tutorial1-EventBasedDataNumberEvents.py)  
+
+---
+
+## Tutorial 2: Loading IBM DVS Gesture Dataset  
+
+This tutorial explores and visualizes event-based data from the DVSGesture dataset, captured by a DVS. The sensor records scene changes with high temporal resolution, enabling detection of rapid movements. The script converts event data into frames representing positive and negative polarities, providing insight into the sensor's response to different stimuli. The final output displays these frames side by side for a comprehensive analysis of event-based vision systems.  
+
+[Tutorial2-EventBasedData.py](Tutorial2-EventBasedData.py)  
+
+![ibmdvs](Images/ibmdvs.png)  
