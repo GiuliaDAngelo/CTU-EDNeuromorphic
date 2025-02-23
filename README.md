@@ -57,55 +57,74 @@ Here is a list of pioneers and leading researchers in the field of neuromorphic 
 - **Carver Mead** – Professor Emeritus, California Institute of Technology ([Caltech](https://www.caltech.edu/))  
 - **Misha Mahowald** – Former researcher, California Institute of Technology  
 - **Tobi Delbruck** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
-- **Kwabena Boahen** – Professor, Stanford University ([Stanford Brains in Silicon](https://brainsinsilicon.stanford.edu/))  
+- **Kwabena Boahen** – Professor, Stanford University ([Stanford Brains in Silicon](https://web.stanford.edu/group/brainsinsilicon/))  
 - **Giacomo Indiveri** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
 - **Shih-Chii Liu** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
 - **Steve Furber** – Professor, University of Manchester, leader of SpiNNaker project ([SpiNNaker](https://www.cs.manchester.ac.uk/research/expertise/neuromorphic-computing/))  
 - **Karlheinz Meier** (1955–2018) – Physicist and co-founder of neuromorphic hardware projects ([BrainScaleS](https://brainscales.kip.uni-heidelberg.de/))  
-- **Chris Eliasmith** – Director of the Centre for Theoretical Neuroscience, University of Waterloo ([Waterloo CTN](https://uwaterloo.ca/centre-theoretical-neuroscience/))  
+- **Chris Eliasmith** – Director of the Centre for Theoretical Neuroscience, University of Waterloo ([Waterloo CTN](https://uwaterloo.ca/))  
 
 This tutorial provides an introduction to event-driven sensing and neuromorphic computing, highlighting its historical origins and key contributors. The field continues to evolve, driving advancements in robotics, artificial intelligence, and low-power computing for real-world applications. 🚀  
 
-## What are Event-Based Cameras? 📸
-Unlike traditional cameras that capture full images at fixed intervals (e.g., 30 or 60 times per second), **event-based cameras** work differently. These cameras are designed to capture **changes** in the scene — pixel by pixel! Instead of taking pictures of the entire scene at once, they only capture what *moves* or *changes* in brightness. 📍✨
+## What Are Event-Based Cameras?
 
-![events](https://github.com/GiuliaDAngelo/EDtutorial/blob/main/Images/example.gif)
+Unlike traditional cameras that capture full frames at fixed intervals—such
+as 30 or 60 frames per second—**event-based cameras** operate on a 
+fundamentally different principle. These innovative cameras are 
+engineered to detect and record **changes** in the scene on a pixel-by-pixel
+basis. Instead of capturing a complete image of the entire scene at once, 
+they only respond to what *moves* or *changes* in brightness, providing a
+more dynamic representation of the visual environment.
 
-Copyrigths for the GIF, Arren Glover, Italian Institute of Technology
+In an event-based camera, each pixel functions independently. This means
+that when a pixel detects a change in brightness—whether due to motion, 
+lighting shifts, or other factors—it reacts immediately. Upon detecting a 
+change, the pixel emits an **event** instead of a traditional frame. This
+event contains information about the time and location of the change. As a
+result, static areas of the scene do not generate events, leading to a 
+significant reduction in the amount of data collected. This characteristic
+is particularly advantageous for conserving **memory** and **energy**.
+
+Event-based cameras are notable for their ultra-fast response time. They
+capture changes as they occur, enabling real-time processing with virtually
+no delay. This rapid response is crucial for applications that require 
+immediate feedback. Additionally, by focusing only on relevant changes in
+the scene, event-based cameras collect significantly less information than
+traditional cameras, making them highly efficient and suitable for devices
+with limited processing power and storage capacity.
+
+These cameras excel at capturing rapid movements, making them ideal
+for scenarios such as sports, aerial drones in flight, and autonomous
+vehicles navigating complex environments. Their ability to track fast-moving 
+objects with precision sets them apart from conventional imaging systems,
+allowing for more advanced applications in robotics and beyond.
+
+![events](Images/example.gif)  
+*Copyright for the GIF: Arren Glover, Italian Institute of Technology*
+
+Event-based cameras[1], which mimic the initial 
+layers of the mammalian retina and react to pixel-level illumination 
+changes, offer a solution to the limitations of the frame-based cameras. 
+Unlike frame-based cameras, event-based sensors improve dynamic range,
+reduce latency, and generate an
+asynchronous event stream providing information of spatial coordinates, 
+polarity, and timestamps. This results in a significant reduction in data
+processing, making event-based cameras highly relevant for robotic 
+applications[2,3,4,5]. 
+Their inherent real-time response to luminance changes provides 
+an ideal sensory input for guiding subsequent visual attention actions.
 
 
-**Do you want to know more?** Look at my [CTUTalk](https://github.com/GiuliaDAngelo/EDtutorial/blob/main/Images/CTUtalk.pdf)
+### References: 
+- [1] Lichtsteiner, P., Posch, C., & Delbruck, T. (2008). A 128x128 120dB 15us Latency Asynchronous Temporal Contrast Vision Sensor. IEEE Journal of Solid-State Circuits, 43(2), 566-576.**
+- [2] Monforte, Marco, et al. "Exploiting event cameras for spatio-temporal prediction of fast-changing trajectories." 2020 2nd IEEE International Conference on Artificial Intelligence Circuits and Systems (AICAS). IEEE, 2020.
+- [3] Mueggler, Elias, et al. "Continuous-time visual-inertial odometry for event cameras." IEEE Transactions on Robotics 34.6 (2018): 1425-1440.
+- [4] Iacono, Massimiliano, et al. "Towards event-driven object detection with off-the-shelf deep learning." 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2018.
+- [5] Glover, Arren, and Chiara Bartolozzi. "Robust visual tracking with a freely-moving event camera." 2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2017.
+- [6] Bartolozzi, Chiara, et al. "Embedded neuromorphic vision for humanoid robots." CVPR 2011 workshops. IEEE, 2011.
 
 
-### How They Work 🧠🔬
-- Each pixel in an event-based camera works **independently** and detects changes in brightness 🎥.
-- When a pixel detects a change, it sends out an **event** 🚀 (instead of a frame). This means less data is collected for static areas, saving **memory** and **energy** 🔋.
 
-## Why is it so Cool? 😎
-- **Ultra-fast** ⚡: They capture events as they happen, with no delay!
-- **Efficient** 💡: Only relevant information is collected, making them great for devices with limited resources.
-- **Motion detection** 🏃‍♂️: They excel at capturing fast movements like sports, drones in flight, or self-driving cars 🏎️.
-
-## Neuromorphic Vision: What’s That? 🤖🧠
-Neuromorphic vision systems mimic the way our **brain** and **eyes** work! 👁️🧠 The idea is to create cameras and chips that process visual information more like human vision, reacting to changes in the environment in **real-time**. 
-
-These systems use **event-based cameras** to collect data and neuromorphic processors to make decisions, just like how our brain reacts to what we see in milliseconds. 🤯
-
-### Benefits of Neuromorphic Vision Systems 🌍🔍
-- **Real-time processing**: Instant reactions without waiting for a full image 🎞️.
-- **Power efficiency**: By focusing only on changes, these systems save energy and reduce data overload ⚙️.
-- **Biologically inspired**: They simulate how **our neurons** work, making them more adaptive and responsive 🧠⚡.
-
-## Cool Applications 🛠️
-- **Robotics** 🤖: Robots equipped with event-based cameras can navigate dynamic environments more smoothly!
-- **Self-driving cars** 🚗: They use these cameras to react instantly to objects on the road.
-- **Sports** 🏀: Capture high-speed sports actions and improve player performance analysis.
-- **Healthcare** 💉: Monitoring eye movements for diagnosing medical conditions.
-
-## Want to Learn More? 📚
-If you're curious about how the brain 🧠 can inspire technology, **neuromorphic vision** is the perfect place to start! With these futuristic tools, we can create smarter, faster, and more efficient systems. 🌍✨
-
-Check out the for a hands-on introduction!
 
 Do you want to see what events look like? Here you have a tutorial for you: 
 - [Real Data](https://github.com/GiuliaDAngelo/EDtutorial/blob/main/realdata.py)
