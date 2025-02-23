@@ -39,12 +39,15 @@ tasks.
 [Carver Mead](http://www.carvermead.caltech.edu/), a professor at Caltech, is widely recognized as the founder of neuromorphic engineering. In the late 1980s, he introduced the concept of using analog VLSI circuits to mimic neuro-biological architectures present in the nervous system. His seminal work, *A Silicon Model of Early Visual Processing*, co-authored with Misha Mahowald in 1988, demonstrated the potential of silicon-based neural systems. In 2024, Mead was honored with a lifetime contribution award by the Misha Mahowald Prize committee for his foundational work in the field.  
 [Read more at Caltech](https://www.caltech.edu/about/news/carver-mead-earns-lifetime-contribution-award-for-neuromorphic-engineering/)  
 
+
+### Video:
 [![Carver Mead - Neuromorphic Engineering](https://img.youtube.com/vi/vznthE_AsVM/0.jpg)](https://www.youtube.com/watch?v=vznthE_AsVM)
 
 ### Misha Mahowald  
 
 [Misha Mahowald](https://direct.mit.edu/neco/article/35/3/343/113812/Neuromorphic-Engineering-In-Memory-of-Misha), one of Mead's doctoral students, made significant contributions to neuromorphic engineering. She developed the first silicon retina, an analog VLSI system that emulated the early visual processing of the human retina. Her groundbreaking work in the early 1990s on a silicon model of stereoscopic vision provided a foundation for future neuromorphic vision systems. In her honor, the Misha Mahowald Prize was established to recognize outstanding achievements in neuromorphic engineering.  
 
+### Video:
 [![Misha Mahowald - Event-Based Vision](https://img.youtube.com/vi/dh8O5PuxyTk/0.jpg)](https://www.youtube.com/watch?v=dh8O5PuxyTk)
 
 
@@ -52,6 +55,7 @@ tasks.
 
 [Tobi Delbruck](https://www.eetimes.com/podcasts/tobi-delbruck-talks-caltech-cameras-and-neural-control/) is a professor at the Institute of Neuroinformatics at the University of Zurich and ETH Zurich. He has played a crucial role in advancing neuromorphic engineering, particularly in the development of event-based vision sensors. Collaborating with Mead and Mahowald, Delbruck has contributed significantly to silicon retinas and event-driven cameras, shaping the design of modern low-latency, low-power vision systems.  
 
+### Video:
 [![Tobi Delbruck - Neuromorphic Vision](https://img.youtube.com/vi/Y1KBAFM1Iuc/0.jpg)](https://www.youtube.com/watch?v=Y1KBAFM1Iuc)
 
 ### Giacomo Indiveri  
@@ -59,6 +63,7 @@ tasks.
 
 [Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html) is a professor at the Institute of Neuroinformatics at the University of Zurich and ETH Zurich. He is a prominent figure in neuromorphic engineering, making significant advancements in the development of bio-inspired computational architectures. His research focuses on creating hardware that mimics the brain's neural processes, particularly in sensory processing and perception. Indiveri has been instrumental in designing neuromorphic chips and systems capable of real-time processing of sensory data, which has important implications for robotics and artificial intelligence. His contributions have fostered collaboration across disciplines, further advancing the field of neuromorphic computing.
 
+### Video:
 [![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
 
 
@@ -76,7 +81,7 @@ Here is a list of pioneers and leading researchers in the field of neuromorphic 
 - **Karlheinz Meier** (1955–2018) – Physicist and co-founder of neuromorphic hardware projects ([BrainScaleS](https://brainscales.kip.uni-heidelberg.de/))  
 - **Chris Eliasmith** – Director of the Centre for Theoretical Neuroscience, University of Waterloo ([Waterloo CTN](https://uwaterloo.ca/))  
 
-This tutorial provides an introduction to event-driven sensing and neuromorphic computing, highlighting its historical origins and key contributors. The field continues to evolve, driving advancements in robotics, artificial intelligence, and low-power computing for real-world applications. 🚀  
+This tutorial provides an introduction to event-driven sensing and neuromorphic computing, highlighting its historical origins and key contributors. The field continues to evolve, driving advancements in robotics, artificial intelligence, and low-power computing for real-world applications. 
 
 ## What Are Event-Based Cameras?
 
@@ -201,6 +206,8 @@ This tutorial explores and visualizes event-based data from the DVSGesture datas
 
 ## Tutorial 3: Play with Neurons
 This script provides a comprehensive simulation of the Leaky Integrate-and-Fire (LIF) neuron model, a widely used framework in computational neuroscience for understanding neuronal dynamics. The LIF model effectively captures key characteristics of spiking behavior by representing how a neuron integrates incoming signals and leaks potential over time. In this simulation, the neuron's membrane potential is visualized dynamically in response to an external input current, which consists of short pulses. By observing how the neuron reacts to these inputs, users can gain insights into the fundamental processes underlying neuronal firing and the intricate balance between excitation and inhibition in neural networks.
+
+[Tutorial3-Neuron.py](Tutorial3-Neuron.py)  
 
 ![neuron](Images/lif_neuron_with_input.gif)  
 
