@@ -153,6 +153,15 @@ This script demonstrates how to load and visualize event-based data from a Dynam
 [Tutorial1-EventBasedDataTimeWindow.py](Tutorial1-EventBasedDataTimeWindow.py)  
 
 ![DVSdata](Images/attdata.png)  
+
+### Questions: 
+
+1. Understanding Event Cameras: How do event cameras differ from traditional frame-based cameras in terms of capturing dynamic scenes, and what advantages do they provide for analyzing fast-moving objects or changes in the environment?
+
+2. Data Extraction and Processing: After loading the event data, we extract the x and y coordinates, timestamps, and polarities of the events. How might these different attributes be useful in understanding the behavior of moving objects within a scene, and what additional processing steps could enhance the analysis of this data?
+
+3. Interactive Visualization: The script visualizes events in real-time within specified time windows. How might adjusting the window period affect the visualization of events, and what strategies could be employed to ensure that significant events are not missed or overwhelmed by noise during the visualization process?
+
 ---
 
 ## Tutorial 1 (B) - Sliding Window for Event-Based Data Visualization  
@@ -161,6 +170,11 @@ This script extends time-windowed visualization by continuously updating the dis
 
 [Tutorial1-EventBasedDataSlidingWindow.py](Tutorial1-EventBasedDataSlidingWindow.py)  
 
+### Questions: 
+
+
+1. Sliding Window Technique: How does the implementation of a sliding time window impact the way we visualize event data? What considerations should be made regarding the duration of the sliding window to ensure meaningful representations of the scene are captured?
+
 ---
 
 ## Tutorial 1 (C) - Fixed Event Count for Event-Based Data Visualization  
@@ -168,6 +182,12 @@ This script extends time-windowed visualization by continuously updating the dis
 Instead of a time-based window, this script processes a fixed number of events per visualization cycle. It loads DVS data, extracts event properties, and updates the display in real time, ensuring a consistent event sampling rate. This method is useful for applications requiring precise event control, such as neuromorphic computing, object tracking, and motion analysis.  
 
 [Tutorial1-EventBasedDataNumberEvents.py](Tutorial1-EventBasedDataNumberEvents.py)  
+
+### Questions:
+
+1. Understanding Event Grouping: How does the fixed event count visualization approach differ from time-based visualization methods? What are the potential benefits and drawbacks of using a fixed number of events per visualization window in terms of capturing dynamic scenes?
+
+3. Real-Time Visualization Implications: What challenges might arise when visualizing events in fixed batches, particularly in a dynamic environment? How could the choice of batch size (e.g., 1000 events) affect the responsiveness and accuracy of the visualization?
 
 ---
 
@@ -178,3 +198,33 @@ This tutorial explores and visualizes event-based data from the DVSGesture datas
 [Tutorial2-EventBasedData.py](Tutorial2-EventBasedData.py)  
 
 ![ibmdvs](Images/IBMDVS.png)  
+
+## Tutorial 3: Play with Neurons
+This script provides a comprehensive simulation of the Leaky Integrate-and-Fire (LIF) neuron model, a widely used framework in computational neuroscience for understanding neuronal dynamics. The LIF model effectively captures key characteristics of spiking behavior by representing how a neuron integrates incoming signals and leaks potential over time. In this simulation, the neuron's membrane potential is visualized dynamically in response to an external input current, which consists of short pulses. By observing how the neuron reacts to these inputs, users can gain insights into the fundamental processes underlying neuronal firing and the intricate balance between excitation and inhibition in neural networks.
+
+![neuron](Images/lif_neuron_with_input.gif)  
+
+### Questions:
+1. Modifying Input Current: How would you change the amplitude and duration of the input current pulses? Try adjusting the values in the I_ext array or the parameters used to define pulse_times and observe how it affects the neuron's firing behavior.
+Exploring Neuron Parameters:
+
+2. Exploring Neuron Parameters: What happens if you modify the LIF parameters, such as Cm, gL, or VT? Experiment by increasing or decreasing these values and observe how the membrane potential and spiking behavior change in the animation. Can you identify the impact of each parameter on the neuron's dynamics?
+Adding More Pulses:
+
+3. Adding More Pulses: Can you modify the code to introduce more input current pulses within the simulation time (e.g., add more pulses or change their timing)? Try to create a pattern of input that leads to a different firing rate of the neuron and describe what you observe in the membrane potential graph.
+
+## Tutorial 4: Play with Spiking Neural Networks (Brian)
+
+In this section of the code, we create a group of neurons using the NeuronGroup class, specifying the total number of neurons (N) and the governing equations defined in eqs. Each neuron is designed to generate a spike when its membrane potential (v) exceeds a threshold of 1, at which point the potential is reset to 0, simulating the firing and recovery process typical of biological neurons. To model the refractory period—a brief interval during which a neuron is unable to fire again after spiking—we incorporate a refractory time of 5 milliseconds. This setup ensures that the dynamics of neuron firing are accurately captured, and by using the method='exact' parameter, we ensure that the equations are solved with precision at each time step, allowing for a realistic simulation of neuronal activity over time.
+
+[Tutorial4-SpikingNeuralNetwork.py](Tutorial4-SpikingNeuralNetwork.py)  
+
+![SNN](Images/snn.png)  
+
+### Questions: 
+
+1. Effect of Neuron Count: How does changing the number of neurons (variable N) in the simulation affect the overall spiking activity and the firing rate of the network? Try modifying the value of N and observe the differences in the plots. What insights can you gather about the relationship between the number of neurons and network dynamics?
+
+2. Time Constant Variation: What happens to the spiking behavior of the neurons when you adjust the time constant (tau)? Experiment with different values (e.g., 5 ms, 20 ms, 50 ms) and analyze how the membrane potential's response to changes in v0 and incoming spikes is influenced. How does this impact the firing rate and the pattern of spikes?
+
+3. Baseline Potential Exploration: The baseline potential (v0) is initialized based on the neuron's index. If you were to change the equation used to set G.v0 to something more random (e.g., G.v0 = 'rand()*v0_max'), how would this affect the spiking patterns? Investigate the new patterns generated and discuss what this randomness might represent in a biological context.
