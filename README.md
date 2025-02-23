@@ -235,3 +235,17 @@ In this section of the code, we create a group of neurons using the NeuronGroup 
 2. Time Constant Variation: What happens to the spiking behavior of the neurons when you adjust the time constant (tau)? Experiment with different values (e.g., 5 ms, 20 ms, 50 ms) and analyze how the membrane potential's response to changes in v0 and incoming spikes is influenced. How does this impact the firing rate and the pattern of spikes?
 
 3. Baseline Potential Exploration: The baseline potential (v0) is initialized based on the neuron's index. If you were to change the equation used to set G.v0 to something more random (e.g., G.v0 = 'rand()*v0_max'), how would this affect the spiking patterns? Investigate the new patterns generated and discuss what this randomness might represent in a biological context.
+
+## Tutorial 5: Play with SNN Visual Attention
+
+This script implements a saliency-based attention mechanism using event-driven data, allowing for the dynamic processing and visualization of significant features in a scene. By analyzing a stream of events representing two objects, the script generates a saliency map that highlights areas of interest based on configurable parameters governing attention arcs and kernels. Leveraging PyTorch for efficient computations and OpenCV for real-time visualization, the pipeline consists of loading event data, initializing the attention network, and iterating through the events to continuously update the saliency map. Key components include a configuration class for parameter management, an initialization function for the attention network, and a processing function that extracts saliency from incoming event data. This approach demonstrates how neuromorphic attention models can be applied to dynamic visual input, providing a foundation for real-time focus mechanisms in robotic vision and artificial intelligence systems.
+
+Please, download the data for the tutorial [HERE](https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy?rlkey=w33wyjx3jme95eimjg6srw6u7&st=c99r18fz&dl=0)
+
+[Tutorial5-EventBasedSNNVisualAttention](Tutorial5-EventBasedSNNVisualAttention.py)
+
+![attention](Images/attention.png)  
+
+### Questions:
+1. Why is a time window (window_period = 100 ms) used in the attention mechanism, and how does it affect the saliency computation?
+2. What role does the run_attention function play in updating the saliency map, and how is the most salient location determined?
