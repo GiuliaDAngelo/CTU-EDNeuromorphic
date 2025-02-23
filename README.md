@@ -50,6 +50,14 @@ tasks.
 
 [![Tobi Delbruck - Neuromorphic Vision](https://img.youtube.com/vi/Y1KBAFM1Iuc/0.jpg)](https://www.youtube.com/watch?v=Y1KBAFM1Iuc)
 
+### Giacomo Indiveri  
+
+
+[Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html) is a prominent figure in neuromorphic engineering, making significant advancements in the development of bio-inspired computational architectures. His research focuses on creating hardware that mimics the brain's neural processes, particularly in sensory processing and perception. Indiveri has been instrumental in designing neuromorphic chips and systems capable of real-time processing of sensory data, which has important implications for robotics and artificial intelligence. His contributions have fostered collaboration across disciplines, further advancing the field of neuromorphic computing.
+
+[![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
+
+
 ## Key Figures in Neuromorphic Engineering  
 
 Here is a list of pioneers and leading researchers in the field of neuromorphic computing along with their affiliations:  
@@ -165,4 +173,4 @@ This tutorial explores and visualizes event-based data from the DVSGesture datas
 
 [Tutorial2-EventBasedData.py](Tutorial2-EventBasedData.py)  
 
-![ibmdvs](Images/ibmdvs.png)  
+![ibmdvs](Images/IBMDVS.png)  
