@@ -1,5 +1,7 @@
 # CTU: Event-driven sensing and Neuromorphic computing
 
+![Carver Mead-Misha Mahowald](Images/mishacarver.png)
+
 ## Introduction 
 
 Robotics is entering a new era of intelligence, where traditional approaches to perception 
@@ -7,6 +9,8 @@ and computation are no longer sufficient to meet the demands of real-time, energ
 and adaptive systems. To enable more complex behaviours and facilitate the seamless integration 
 of robots into daily human environments, it is imperative to significantly reduce the power 
 consumption of robotic applications.
+
+![Silicon Retina](Images/siliconretina.png)
 
 Event-driven sensing and neuromorphic computing offer disruptive solutions to these challenges 
 by mimicking how biological brains perceive and process their surroundings, a critical step toward
@@ -53,7 +57,7 @@ tasks.
 ### Giacomo Indiveri  
 
 
-[Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html) is a prominent figure in neuromorphic engineering, making significant advancements in the development of bio-inspired computational architectures. His research focuses on creating hardware that mimics the brain's neural processes, particularly in sensory processing and perception. Indiveri has been instrumental in designing neuromorphic chips and systems capable of real-time processing of sensory data, which has important implications for robotics and artificial intelligence. His contributions have fostered collaboration across disciplines, further advancing the field of neuromorphic computing.
+[Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html) is a professor at the Institute of Neuroinformatics at the University of Zurich and ETH Zurich. He is a prominent figure in neuromorphic engineering, making significant advancements in the development of bio-inspired computational architectures. His research focuses on creating hardware that mimics the brain's neural processes, particularly in sensory processing and perception. Indiveri has been instrumental in designing neuromorphic chips and systems capable of real-time processing of sensory data, which has important implications for robotics and artificial intelligence. His contributions have fostered collaboration across disciplines, further advancing the field of neuromorphic computing.
 
 [![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
 
