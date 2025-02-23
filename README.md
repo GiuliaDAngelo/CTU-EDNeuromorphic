@@ -124,25 +124,15 @@ an ideal sensory input for guiding subsequent visual attention actions.
 - [6] Bartolozzi, Chiara, et al. "Embedded neuromorphic vision for humanoid robots." CVPR 2011 workshops. IEEE, 2011.
 
 
+![bm](Images/bmlogo.png)  
+
+If you want to know more about the history and advancements in neuromorphic 
+engineering and event-based sensing, check out the ["Brains and Machines"](https://brainsandmachines.net/) 
+podcast.  This podcast delves into the intersection of neuroscience, robotics, and artificial intelligence, featuring discussions with influential leading experts in the field and exploring the latest research and innovations.
+
+![bm](Images/bm.png)  
 
 
-Do you want to see what events look like? Here you have a tutorial for you: 
-- [Real Data](https://github.com/GiuliaDAngelo/EDtutorial/blob/main/realdata.py)
-
-Do you want to create a neuron and see its behaviour?
-- [Neuron tutorial](https://github.com/GiuliaDAngelo/EDtutorial/blob/main/neuron.py)
-
-## References 📚
-Here are some valuable resources to learn more about event-based cameras and neuromorphic vision:
-
-1. **Papers:**
-   - [Event-Based Vision: A Survey](https://ieeexplore.ieee.org/abstract/document/9138762) by Gallego et al. – A comprehensive survey of event-based vision systems.
-   - [Neuromorphic Engineering](https://link.springer.com/chapter/10.1007/978-3-662-43505-2_38) by Giacomo Indiveri – An overview of neuromorphic engineering principles and applications.
+# Tutorial Overview
 
 
-4. **Websites:**
-   - [Event-based Perception for Robotics](https://edpr.iit.it/) – A dedicated resource for event-based vision research and applications.
-   - [Neuromorphic Computing and Engineering](https://iopscience.iop.org/journal/2634-4386) – A journal focused on neuromorphic computing research.
-
-
-🧠 **Stay curious!**
