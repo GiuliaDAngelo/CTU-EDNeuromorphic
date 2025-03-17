@@ -150,6 +150,10 @@ podcast.  This podcast delves into the intersection of neuroscience, robotics, a
 ![bm](Images/bm.png)  
 
 
+# Google Form - Tutorial responses: 
+[Link](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
+
+
 # Tutorial Overview
 ## Tutorial 1 (A) - Time Window for Event-Based Data Visualization  
 
