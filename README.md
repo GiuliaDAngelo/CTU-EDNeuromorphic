@@ -204,6 +204,12 @@ This tutorial explores and visualizes event-based data from the DVSGesture datas
 
 ![ibmdvs](Images/IBMDVS.png)  
 
+### Questions:
+
+1. Try experimenting with different values for user_trial and time_window. How do these changes affect the visualization and interpretation of the data?
+
+---
+
 ## Tutorial 3: Play with Neurons
 This script provides a comprehensive simulation of the Leaky Integrate-and-Fire (LIF) neuron model, a widely used framework in computational neuroscience for understanding neuronal dynamics. The LIF model effectively captures key characteristics of spiking behavior by representing how a neuron integrates incoming signals and leaks potential over time. In this simulation, the neuron's membrane potential is visualized dynamically in response to an external input current, which consists of short pulses. By observing how the neuron reacts to these inputs, users can gain insights into the fundamental processes underlying neuronal firing and the intricate balance between excitation and inhibition in neural networks.
 
