@@ -235,7 +235,7 @@ Adding More Pulses:
 This script simulates a single neuron by injecting current to observe its membrane potential dynamics.
 Based on the Sinabs documentation.
 
-[Tutorial3-Neuron_sinabs](Tutorial3-Neuron_sinabs)  
+[Tutorial3-Neuron_sinabs](Tutorial3-Neuron_sinabs.py)  
 
 ![neuron](Images/neuronsinabs.png)  
 
