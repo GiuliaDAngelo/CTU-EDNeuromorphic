@@ -274,3 +274,24 @@ Please, download the data for the tutorial [HERE](https://www.dropbox.com/scl/fi
 ### Questions:
 1. Why is a time window (window_period = 100 ms) used in the attention mechanism, and how does it affect the saliency computation?
 2. What role does the run_attention function play in updating the saliency map, and how is the most salient location determined?
+
+## Tutorial 6: LogPolar retinal structure
+
+You will create a retina with eccentric receptive fields, 128x128 receptive fields and plot the raster plot.
+The eccentric receptive fields are created by using the `eccentricity` parameters in the `create_eccentric_RFs()` function.
+The parameters are in helpers/config.py file.
+In this script you will also plot the eccentric structure and the Look Up Table (LUT) of the receptive fields.
+The LUT will be created so that it'll speed up the process of finding the receptive field of a given neuron.
+
+References: [Chessa, M., Maiello, G., Bex, P. J., & Solari, F. (2016). A space-variant model for motion interpretation across the visual field. Journal of vision, 16(2), 12-12.](https://jov.arvojournals.org/article.aspx?articleid=2498961)
+
+[Tutorial6-LogPolarRetina](Tutorial6-LogPolarRetina.py)
+
+![logpolar](Images/tutorialeccentricretina.gif)  
+
+### Questions:
+
+
+1. How does the rescaling of the rho value in the rescale_rho function ensure that receptive fields are properly distributed within the plot dimensions? Explain the significance of the nonlinearity parameter a in this process.
+
+2. What role does the gaussian_plot function play in visualizing the receptive fields of neurons, and how does it relate to the membrane potential of the neurons and spike generation over time?
