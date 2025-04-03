@@ -2,42 +2,28 @@ import tonic
 import cv2
 import numpy as np
 
-####################
-### Requirements ###
-####################
+'''
+Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
 
-# To run this script, make sure you have the following Python packages installed:
-# - tonic: For handling event-based data
-# - opencv-python: For image processing and displaying frames
-#
-# You can install them using the following commands:
-# pip install --upgrade pip
-# pip install tonic
-# pip install opencv-python
-# pip install --upgrade tonic
-# If you're on macOS, you might also need to run:
-# /Applications/Python\ 3.12/Install\ Certificates.command
 
-####################
-### Introduction ####
-####################
+In this tutorial, we will load and visualize event-based data from the DVSGesture dataset.
+This dataset consists of events captured by a Dynamic Vision Sensor (DVS), which records changes
+in the scene over time with high temporal resolution.
 
-# In this tutorial, we will load and visualize event-based data from the DVSGesture dataset.
-# This dataset consists of events captured by a Dynamic Vision Sensor (DVS), which records changes
-# in the scene over time with high temporal resolution.
-#
-# We will convert the events into frames for both positive and negative polarities, allowing us to
-# visualize how the sensor responds to different stimuli. The output will be a concatenated display
-# of frames representing the two polarities, enabling us to analyze the data more effectively.
+We will convert the events into frames for both positive and negative polarities, allowing us to
+visualize how the sensor responds to different stimuli. The output will be a concatenated display
+of frames representing the two polarities, enabling us to analyze the data more effectively.
+'''
+
 
 # Step 1: Load the Events from the DVSGesture Dataset
 # Specify the path to your dataset
-path = '/Users/giuliadangelo/workspace/code/CTU-EDNeuromorphic/data/'
+path = 'data/'
 dvs_training = tonic.datasets.DVSGesture(path, train=True)
 
 # Define parameters for the event processing
 time_window = 10000  # Time window in microseconds (10 ms)
-user_trial = 10      # Index of the user trial to analyze
+user_trial = 1      # Index of the user trial to analyze
 
 # Load events and corresponding numpy data for the specified trial
 events, npys = dvs_training[user_trial]

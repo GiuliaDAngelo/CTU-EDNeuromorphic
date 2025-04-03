@@ -7,3 +7,7 @@ brian2
 matplotlib
 torch
 PyQt5
+bimvee
+sinabs
+scikit-image
+torchvision

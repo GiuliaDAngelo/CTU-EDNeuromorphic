@@ -295,3 +295,29 @@ References: [Chessa, M., Maiello, G., Bex, P. J., & Solari, F. (2016). A space-v
 1. How does the rescaling of the rho value in the rescale_rho function ensure that receptive fields are properly distributed within the plot dimensions? Explain the significance of the nonlinearity parameter a in this process.
 
 2. What role does the gaussian_plot function play in visualizing the receptive fields of neurons, and how does it relate to the membrane potential of the neurons and spike generation over time?
+
+
+## Tutorial 7: SNN Object Motion Sensitivity
+
+This tutorial demonstrates the implementation of an SNN object motion segmentation system using neuromorphic
+vision processing techniques. The system employs Optimized Motion Sensitivity (OMS) cells to
+analyze event-based frames and generate motion segmentation. The tutorial covers key steps
+including kernel generation, neural network initialization, and the processing pipeline to
+detect local motion differences between center and surround regions. The output consists of an
+OMS-generated motion map, which can be compared with ground-truth segmentation masks.
+
+
+References: [D'Angelo, Giulia, et al. "Wandering around: A bioinspired approach to visual attention through object motion sensitivity." arXiv preprint arXiv:2502.06747 (2025).](https://arxiv.org/abs/2502.06747)
+
+
+Please, download the data for the tutorial [HERE](https://www.dropbox.com/scl/fo/g5j17yh6elrc61s66aiba/AO2lSvWa5oLlZYhc0V2CNkw?rlkey=w0hgpsbd2mjvbfp4vrtdm5bhe&st=hi09k9to&dl=0)
+
+[Tutorial7-OMS](Tutorial7-OMS.py)
+
+![oms](Images/oms.png)
+
+### Questions:
+
+1. How does the difference between center and surround responses contribute to motion segmentation in the OMS network?
+
+2. Why is it important to normalize the Gaussian kernels in the gaussian_kernel function, and how does this affect the processing of event-based frames?

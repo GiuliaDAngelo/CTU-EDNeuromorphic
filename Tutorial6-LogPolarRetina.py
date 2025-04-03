@@ -6,13 +6,10 @@ It generates receptive fields (RFs) for neurons arranged in a log-polar pattern,
 Each receptive field (RF) represents the region of the visual field captured by a neuron and changes size as the eccentricity (distance from the fovea) increases.
 '''
 
-import sys
-sys.path.append('/Users/giuliadangelo/workspace/code/foveated-vision')  # Adds a custom directory to the system path for importing required modules
 import numpy as np
 import matplotlib.pyplot as plt
 import sinabs.layers as sl  # Importing necessary layers from the Sinabs library for spiking neurons
 import torch
-import imageio
 import matplotlib
 matplotlib.use('qt5agg')  # Configures matplotlib to use the Qt5 backend for interactive graphics
 

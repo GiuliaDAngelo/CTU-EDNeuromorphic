@@ -3,6 +3,9 @@ data/DVSGesture
 helpers/__pycache__/
 data/twoobjects/
 data/.DS_Store
+data/evimo/seq_00_frames.npy
+data/evimo/seq_00_masks.npy
+data/evimo/.DS_Store
 
 
 

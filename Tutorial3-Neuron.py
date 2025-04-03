@@ -1,3 +1,13 @@
+'''
+Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
+
+This script simulates the behavior of a Leaky Integrate-and-Fire (LIF) neuron model.
+The LIF model is a simple yet effective representation of neuronal dynamics, capturing
+essential features of spiking behavior. The simulation visualizes the neuron's membrane
+potential over time in response to an external input current composed of short pulses.
+
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -6,11 +16,6 @@ import matplotlib
 # Set the backend for Matplotlib to 'TkAgg' for interactive plotting
 matplotlib.use('TkAgg')
 
-# Introduction:
-# This script simulates the behavior of a Leaky Integrate-and-Fire (LIF) neuron model.
-# The LIF model is a simple yet effective representation of neuronal dynamics, capturing
-# essential features of spiking behavior. The simulation visualizes the neuron's membrane
-# potential over time in response to an external input current composed of short pulses.
 
 # Define LIF parameters
 Cm = 0.74          # Membrane capacitance (uF)

@@ -1,7 +1,15 @@
-# This tutorial demonstrates how to simulate a simple spiking neural network using the Brian2 library.
-# We will create a network of 100 neurons, each with a defined membrane potential that evolves over time.
-# The neurons will fire action potentials when their membrane potential exceeds a certain threshold,
-# and we will visualize the spiking activity and firing rates based on their baseline potentials.
+
+'''
+
+Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
+
+This tutorial demonstrates how to simulate a simple spiking neural network using the Brian2 library.
+We will create a network of 100 neurons, each with a defined membrane potential that evolves over time.
+The neurons will fire action potentials when their membrane potential exceeds a certain threshold,
+and we will visualize the spiking activity and firing rates based on their baseline potentials.
+
+'''
+
 
 # Import necessary libraries for simulating spiking neural networks and plotting
 from brian2 import *

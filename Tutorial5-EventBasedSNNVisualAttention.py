@@ -1,4 +1,7 @@
 """
+
+Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
+
 This script implements a saliency-based attention mechanism using event-driven data.
 It processes a series of events representing two objects, visualizing their spatial attention
 through a saliency map. The attention mechanism is designed to highlight the most significant
