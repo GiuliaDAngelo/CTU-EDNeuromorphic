@@ -2,5 +2,7 @@
 data/DVSGesture
 helpers/__pycache__/
 data/twoobjects/
+data/.DS_Store
+
 
 

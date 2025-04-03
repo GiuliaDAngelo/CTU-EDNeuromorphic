@@ -30,7 +30,7 @@ matplotlib.use('TkAgg')
 width = 304
 height = 240
 initial_window_period = 300  # Initial time window in milliseconds
-sliding_wdw = 30          # Sliding window duration in milliseconds
+sliding_wdw = 1          # Sliding window duration in milliseconds
 time_buff = sliding_wdw # Buffer for managing event updates
 
 # Load event data from the specified file

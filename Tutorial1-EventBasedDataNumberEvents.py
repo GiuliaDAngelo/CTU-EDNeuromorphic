@@ -50,7 +50,7 @@ events = importIitYarp(
 )
 
 # Define the number of events per visualization window
-num_events = 1000
+num_events = 10
 
 # Process and visualize events in batches of 'num_events'
 number_events(events, camera_events, height, width, num_events)

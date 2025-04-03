@@ -1,0 +1,9 @@
+
+
+tonic
+opencv-python
+numpy
+brian2
+matplotlib
+torch
+PyQt5

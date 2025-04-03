@@ -214,7 +214,7 @@ This tutorial explores and visualizes event-based data from the DVSGesture datas
 
 ---
 
-## Tutorial 3: Play with Neurons
+## Tutorial 3(A): Play with Neurons
 This script provides a comprehensive simulation of the Leaky Integrate-and-Fire (LIF) neuron model, a widely used framework in computational neuroscience for understanding neuronal dynamics. The LIF model effectively captures key characteristics of spiking behavior by representing how a neuron integrates incoming signals and leaks potential over time. In this simulation, the neuron's membrane potential is visualized dynamically in response to an external input current, which consists of short pulses. By observing how the neuron reacts to these inputs, users can gain insights into the fundamental processes underlying neuronal firing and the intricate balance between excitation and inhibition in neural networks.
 
 [Tutorial3-Neuron.py](Tutorial3-Neuron.py)  
@@ -229,6 +229,21 @@ Exploring Neuron Parameters:
 Adding More Pulses:
 
 3. Adding More Pulses: Can you modify the code to introduce more input current pulses within the simulation time (e.g., add more pulses or change their timing)? Try to create a pattern of input that leads to a different firing rate of the neuron and describe what you observe in the membrane potential graph.
+
+
+## Tutorial 3(B): Play with sinabs library
+This script simulates a single neuron by injecting current to observe its membrane potential dynamics.
+Based on the Sinabs documentation.
+
+[Tutorial3-Neuron_sinabs](Tutorial3-Neuron_sinabs)  
+
+![neuron](Images/neuronsinabs.png)  
+
+### Questions:
+
+1. How does the membrane time constant (tau_mem) affect the neuron’s membrane potential dynamics in the Leaky Integrate-and-Fire (LIF) model?
+
+2. What role does the torch.no_grad() context play in the simulation, and why is it used in this script?
 
 ## Tutorial 4: Play with Spiking Neural Networks (Brian)
 

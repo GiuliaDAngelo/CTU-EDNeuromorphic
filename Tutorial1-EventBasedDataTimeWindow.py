@@ -22,7 +22,7 @@ matplotlib.use('TkAgg')
 width = 304
 height = 240
 # Define the fixed time window for event visualization (in milliseconds)
-window_period = 300  # ms
+window_period = 10  # ms
 # Define the camera from which events will be extracted ('right' camera)
 camera_events = 'right'
 # Specify the codec format used for decoding the event data ('24bit' format)
