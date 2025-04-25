@@ -150,8 +150,13 @@ podcast.  This podcast delves into the intersection of neuroscience, robotics, a
 ![bm](Images/bm.png)  
 
 
+# CTU Neuromorphic sensing and computing lecture at CTU: 
+
+Slides for the lecture can be found [CTU-Neuromorphic sensing and computing](CTULectureGiuliaDAngelo.pdf)
+
+
 # Google Form - Tutorial responses: 
-[Link](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
+Google form with tutorial questions: [Link](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
 
 
 # Tutorial Overview
