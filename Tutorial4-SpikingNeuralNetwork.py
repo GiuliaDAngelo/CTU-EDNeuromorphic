@@ -28,7 +28,7 @@ N = 100  # Total number of neurons
 tau = 10 * ms  # Time constant determining how quickly the membrane potential responds
 
 # Define the maximum initial membrane potential (v0) for the neurons
-v0_max = 2.  # Maximum baseline potential for the neurons
+v0_max = 20.  # Maximum baseline potential for the neurons
 
 # Set the total duration of the simulation (in milliseconds)
 duration = 1000 * ms  # Simulation time set to 1 second
