@@ -390,9 +390,8 @@ This tutorial implements an **Object Motion Sensitivity (OMS)** network — a bi
 
 
 **Exercise**
-     # ============================================================================
+
      # 5. Exercise: Compute OMS Motion Score
-     # ============================================================================
      # GOAL: Compute a numeric OMS motion score on one frame.
      # Expected Output:
      # - frame index (integer)
