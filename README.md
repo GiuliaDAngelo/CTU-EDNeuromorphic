@@ -221,9 +221,11 @@ This script extends the time-window approach with a **sliding window** that cont
 
 > 💡 **Key concept:** A sliding window preserves temporal continuity. Unlike the fixed window, it never "resets" — it shifts forward, always showing the most recent Δt of activity.
 
-**Optional Questions:**
-1. How does the sliding window change the way motion and scene dynamics are represented compared to a fixed window? What are the trade-offs in choosing window duration?
+**Question:** 
+1. What happens if `sliding_wdw` equals `initial_window_period`?
 
+**Optional Question:** 
+2. In a scene where nothing is moving, how many events would a fixed-count window generate compared to a time-based window? Explain why.
 ---
 
 ### Tutorial 1C — Fixed Event Count for Event-Based Data Visualisation
@@ -235,10 +237,7 @@ Instead of a time-based window, this script processes a **fixed number of events
 > 💡 **Key concept:** In low-activity scenes, a fixed event count window covers a longer time span; in high-activity scenes, it covers a shorter one. This is useful when downstream processing (e.g. a neural network) expects a fixed-size input.
 
 **Question:** 
-1. What happens if `sliding_wdw` equals `initial_window_period`?
-
-**Optional Question:** 
-2. In a scene where nothing is moving, how many events would a fixed-count window generate compared to a time-based window? Explain why.
+1. If you increase `num_events` from 100 to 1000, what do you see in the visualisation and why?
 
 ---
 
