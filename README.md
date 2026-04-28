@@ -260,7 +260,7 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 
 **Question:**
 
-1. Try experimenting with different values for **user_trial** and **time_window**.How do these changes affect the visualization and interpretation of the data?
+1. Try experimenting with different values for **user_trial** and **time_window**. How do these changes affect the visualization and interpretation of the data?
 
 
 
@@ -301,7 +301,7 @@ This script uses the **Sinabs** library to simulate a single LIF neuron with inj
 
 ---
 
-### Tutorial 4 — Play with Spiking Neural Networks (Brian2)
+### Tutorial 4 A & B — Play with Spiking Neural Networks (Brian2)
 
 **Script:** [`Tutorial4-SpikingNeuralNetwork.py`](Tutorial4-SpikingNeuralNetwork.py)
 
@@ -311,16 +311,13 @@ This tutorial introduces **network-level** spiking dynamics using the **Brian2**
 
 > 💡 **Key concept:** Real neural computation emerges at the *network* level — not from individual neurons. This tutorial demonstrates how collective spiking patterns arise from population dynamics, which underpins everything from sensory coding to decision-making.
 
-**Optional Questions:**
-1. How does changing the number of neurons `N` affect spiking activity and the firing rate of the network?
-2. What happens to spiking behaviour when you adjust the time constant `tau`? Experiment with 5 ms, 20 ms, and 50 ms.
-3. What would happen if you randomised the baseline potential `v0`? What might this represent biologically?
+**Question:**
 
----
+1. 4B) Set weights back to w = 1.0 and start decreasing the refractory period from 5*ms down to 1*ms. How far does the signal spread for 1*ms refractory period?
 
-### Tutorial 5 — SNN Visual Attention
+### Tutorial 5 A & B — SNN Visual Attention
 
-**Script:** [`Tutorial5-EventBasedSNNVisualAttention.py`](Tutorial5-EventBasedSNNVisualAttention.py)
+**Script:** [`Tutorial5-EventBasedSNNVisualAttention.py`](Tutorial5A-EventBasedSNNVisualAttention.py)
 
 📥 **Download data:** [twoobjects.npy](https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy?rlkey=w33wyjx3jme95eimjg6srw6u7&st=c99r18fz&dl=0)
 
@@ -330,9 +327,8 @@ This tutorial implements a **saliency-based attention mechanism** using event-dr
 
 > 💡 **Key concept:** This tutorial connects directly to the NPC Lab's research on **active vision for robotics** — the idea that a robot should not process everything equally, but focus its limited resources on the most behaviourally relevant parts of the scene.
 
-**Optional Questions:**
-1. Why is a time window (`window_period = 100 ms`) used in the attention mechanism, and how does it affect saliency computation?
-2. What role does the `run_attention` function play in updating the saliency map, and how is the most salient location determined?
+**Questions:**
+1. What are the coordinates of the first three detected most salient points when the inhibition of return is active?
 
 ---
 
@@ -366,9 +362,8 @@ This tutorial implements an **Object Motion Sensitivity (OMS)** network — a bi
 
 > 💡 **Key concept:** OMS cells are modelled on retinal ganglion cells that respond selectively to objects moving differently from their background. This is directly related to the NPC Lab's work on bioinspired visual attention — see [D'Angelo et al., arXiv:2502.06747, 2025](https://arxiv.org/abs/2502.06747).
 
-**Optional Questions:**
-1. How does the difference between centre and surround responses contribute to motion segmentation in the OMS network?
-2. Why is it important to normalise the Gaussian kernels in the `gaussian_kernel` function, and how does this affect the processing of event-based frames?
+**Questions:**
+1. How does the difference between center and surround responses contribute to motion segmentation in the OMS network?
 
 ---
 

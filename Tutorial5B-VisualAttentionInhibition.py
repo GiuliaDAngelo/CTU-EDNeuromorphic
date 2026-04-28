@@ -88,7 +88,7 @@ salmax_coords = np.zeros((2,), dtype=np.int32)  # Array to hold coordinates of m
 
 ##### Attention Mechanism #####
 # Initialize the attention modules with the specified device and parameters
-net_attention = initialise_attention(device, config.ATTENTION_PARAMS)
+net_attention = initialise_attention(device, Config.ATTENTION_PARAMS)
 
 # Set the time window period for processing events (in milliseconds)
 window_period = 100  # Time window in milliseconds
@@ -104,10 +104,10 @@ for xi, yi, pi, ti in zip(x, y, p, t):
         window[0][yi][xi] = 255  # Mark the pixel corresponding to the event
     else:
 
-        #TODO: Here use the run_attention_inhibition_of_return(window, net_attention, device, resolution,
-        #                                   config.ATTENTION_PARAMS['num_pyr'], visited_locations) 
+        # TODO: Here use the run_attention_inhibition_of_return(window, net_attention, device, resolution,
+        #                                   config.ATTENTION_PARAMS['num_pyr'], visited_locations)
         #      function instead of run_attention()
-        saliency_map[:], salmax_coords[:] = pass
+        # saliency_map[:], salmax_coords[:] = pass
        
         # Apply a color map to the window for better visualization
         window_map_jet = cv2.applyColorMap(window.detach().cpu().numpy().squeeze(0).astype(np.uint8), cv2.COLORMAP_JET)
