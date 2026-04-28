@@ -211,9 +211,9 @@ This script introduces event-based data loading and visualisation using the `imp
 
 **Optional Questions for Brainstorming:**
 
-2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
+2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? 
 
-3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
+3. How does adjusting the time window period affect visualisation? 
 
 ---
 
@@ -257,6 +257,8 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 ![ibmdvs](Images/IBMDVS.png)
 
 > 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
+
+**Exercise -> TODO: compute the total number of events and the sparsity for the specific user_trial**
 
 **Question:**
 
@@ -313,7 +315,7 @@ This tutorial introduces **network-level** spiking dynamics using the **Brian2**
 
 > 💡 **Key concept:** Real neural computation emerges at the *network* level — not from individual neurons. This tutorial demonstrates how collective spiking patterns arise from population dynamics, which underpins everything from sensory coding to decision-making.
 
-**Question:**
+**Questions:**
 
 1. 4B) Set weights back to w = 1.0 and start decreasing the refractory period from 5*ms down to 1*ms. How far does the signal spread for 1*ms refractory period?
 
@@ -331,6 +333,14 @@ This tutorial implements a **saliency-based attention mechanism** using event-dr
 
 > 💡 **Key concept:** This tutorial connects directly to the NPC Lab's research on **active vision for robotics** — the idea that a robot should not process everything equally, but focus its limited resources on the most behaviourally relevant parts of the scene.
 
+
+**Exercise:**  
+
+     # TODO: Here use the run_attention_inhibition_of_return(window, net_attention, device, resolution,
+        #                                   config.ATTENTION_PARAMS['num_pyr'], visited_locations)
+        #      function instead of run_attention()
+        # saliency_map[:], salmax_coords[:] = HERE
+
 **Questions:**
 1. What are the coordinates of the first three detected most salient points when the inhibition of return is active?
 
@@ -347,6 +357,18 @@ This tutorial builds a biologically plausible **retina model with eccentric rece
 > 💡 **Key concept:** The human retina does not sample space uniformly — it is highly precise at the fovea (centre) and coarser in the periphery. This log-polar structure is enormously efficient and is the biological motivation for foveated active vision systems.
 
 **Reference:** Chessa et al., *A space-variant model for motion interpretation across the visual field*, Journal of Vision, 2016. [DOI](https://jov.arvojournals.org/article.aspx?articleid=2498961)
+
+**Exercise 1:**  
+     ### TODO 1: Compute image coverage from the LUT mask.
+     ###         A pixel is covered if mask[y][x] contains at least one neuron ID.
+     ###         Hint: loop over all (y, x) and check len(mask[y][x]) > 0
+
+**Exercise 2:**  
+     ### TODO 2: Create a diagonal stimulus (top-left → bottom-right).
+     ###         For each pixel (t, t) along the diagonal, find all neurons in mask[t][t]
+     ###         and collect their IDs into a sorted list.
+     ###         Hint: diag_len = min(width, height), then loop t in range(diag_len)
+     
 
 **Optional Questions:**
 1. How does the `rescale_rho` function ensure that receptive fields are properly distributed within plot dimensions? What is the role of the nonlinearity parameter `a`?
@@ -366,7 +388,17 @@ This tutorial implements an **Object Motion Sensitivity (OMS)** network — a bi
 
 > 💡 **Key concept:** OMS cells are modelled on retinal ganglion cells that respond selectively to objects moving differently from their background. This is directly related to the NPC Lab's work on bioinspired visual attention — see [D'Angelo et al., arXiv:2502.06747, 2025](https://arxiv.org/abs/2502.06747).
 
-**Optional Questions:**
+
+**Exercise**
+     # ============================================================================
+     # 5. Exercise: Compute OMS Motion Score
+     # ============================================================================
+     # GOAL: Compute a numeric OMS motion score on one frame.
+     # Expected Output:
+     # - frame index (integer)
+     # - motion ratio (%) in [0, 100]
+
+**Questions:**
 1. How does the difference between center and surround responses contribute to motion segmentation in the OMS network?
 
 ---
