@@ -206,9 +206,11 @@ This script introduces event-based data loading and visualisation using the `imp
 > 💡 **Key concept:** A fixed time window captures all events that occur within a defined interval [t, t+Δt]. This is the simplest way to batch asynchronous events for visualisation or processing.
 
 **Question:**
+
 1. How do event cameras differ from traditional frame-based cameras, and what advantages do they provide?
 
 **Optional Questions for Brainstorming:**
+
 2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
 
 3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
@@ -224,9 +226,11 @@ This script extends the time-window approach with a **sliding window** that cont
 > 💡 **Key concept:** A sliding window preserves temporal continuity. Unlike the fixed window, it never "resets" — it shifts forward, always showing the most recent Δt of activity.
 
 **Question:** 
+
 1. What happens if `sliding_wdw` equals `initial_window_period`?
 
 **Optional Question:** 
+
 2. In a scene where nothing is moving, how many events would a fixed-count window generate compared to a time-based window? Explain why.
 ---
 
@@ -239,6 +243,7 @@ Instead of a time-based window, this script processes a **fixed number of events
 > 💡 **Key concept:** In low-activity scenes, a fixed event count window covers a longer time span; in high-activity scenes, it covers a shorter one. This is useful when downstream processing (e.g. a neural network) expects a fixed-size input.
 
 **Question:** 
+
 1. If you increase `num_events` from 100 to 1000, what do you see in the visualisation and why?
 
 ---
@@ -254,6 +259,7 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 > 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
 
 **Optional Questions:**
+
 1. Experiment with different values for `user_trial` and `time_window`. How do these changes affect the visualisation and interpretation of the data?
 
 ---
