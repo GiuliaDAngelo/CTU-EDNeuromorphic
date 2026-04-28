@@ -1,328 +1,391 @@
-# CTU: Event-driven sensing and Neuromorphic computing
+# Event-Driven Sensing and Neuromorphic Computing
+### CTU Prague — Department of Cybernetics, Faculty of Electrical Engineering
 
-![Carver Mead-Misha Mahowald](Images/mishacarver.png)
+---
 
-## Introduction 
+> *"The brain is imagination, and that was exciting to me; I wanted to build a chip that could imagine something"*  
+> Misha Mahowald
 
-Robotics is entering a new era of intelligence, where traditional approaches to perception 
-and computation are no longer sufficient to meet the demands of real-time, energy-efficient,
-and adaptive systems. To enable more complex behaviours and facilitate the seamless integration 
-of robots into daily human environments, it is imperative to significantly reduce the power 
-consumption of robotic applications.
+---
+
+## 🧠 About This Course
+
+This tutorial series is part of the **Neuroinspired Perception and Cognition (NPC) Lab** teaching activities at Czech Technical University in Prague. It introduces students to the principles of event-driven sensing and neuromorphic computing — a paradigm shift in how machines perceive and process the world.
+
+By the end of this series, you will be able to:
+
+- Understand the biological principles behind event-based vision and spiking neural networks
+- Load, process, and visualise data from Dynamic Vision Sensors (DVS)
+- Simulate spiking neurons and small spiking neural networks
+- Connect neuromorphic sensing to real robotic applications
+
+---
+
+## 🔬 The NPC Lab at CTU Prague
+
+The **Neuroinspired Perception and Cognition (NPC) Lab**, led by [Prof. Giulia D'Angelo](https://www.giuliadangelo.com/), operates within the Department of Cybernetics at CTU's Faculty of Electrical Engineering. The lab is funded through the **ENDEAVOUR Marie Skłodowska-Curie Fellowship** (2024–2026) and the **PIONEER GAČR grant** (2026–2028).
+
+### Research Focus
+
+| Theme | Description |
+|---|---|
+| **Event-based vision** | Processing asynchronous DVS data for real-time robotic perception |
+| **Neuromorphic computing** | Deployment of brain-inspired algorithms on dedicated hardware (SpiNNaker, Loihi, Innatera Pulsar, Speck) |
+| **Spiking Neural Networks** | Biologically plausible models for efficient, spike-based computation |
+| **Active vision** | Bio-inspired eye movement control for humanoid robots (iCub) |
+| **Embodiment** | Integration of neuromorphic sensing and computing into physical robotic bodies to enable adaptive, real-world behaviour |
+
+### Selected Lab Output
+
+> 📄 **NMI Perspective Paper (2026)**  
+> *"A benchmarking framework for embodied neuromorphic agents"*  
+> **Nature Machine Intelligence** — DOI: [10.1038/s42256-026-01197-w](https://doi.org/10.1038/s42256-026-01197-w)  
+> Open-source platform: [github.com/ActiveBraid/ActiveBraidCrawler](https://github.com/ActiveBraid/ActiveBraidCrawler)
+
+The lab is an active member of the **Open Neuromorphic** community and runs the [**Brains & Machines**](https://brainsandmachines.net/) podcast — a forum for researchers at the intersection of neuroscience, robotics, and AI.
+
+---
+
+## 📖 Introduction
+
+Robotics is entering a new era of intelligence. Traditional approaches to perception and computation are no longer sufficient to meet the demands of real-time, energy-efficient, and adaptive autonomous systems.
+
+**Event-driven sensing** and **neuromorphic computing** offer disruptive solutions to these challenges by mimicking the way biological brains perceive and process their surroundings. Unlike conventional systems that process data at fixed intervals, event-driven systems react *only when a change occurs* in the environment — just like biological sensory neurons.
+
+```
+Traditional camera:          Event-based camera:
+┌────────────────────┐       ┌────────────────────┐
+│ Frame @ t=0ms      │       │ Event at (x,y,t,p) │
+│ Frame @ t=33ms     │  vs.  │ Event at (x,y,t,p) │
+│ Frame @ t=66ms     │       │ Event at (x,y,t,p) │
+│ (full image always)│       │ (only on change)   │
+└────────────────────┘       └────────────────────┘
+     High redundancy              Low latency
+     Fixed rate                   Asynchronous
+     High power                   Energy efficient
+```
+
+This shift enables **low-latency**, **low-power**, and **highly efficient** processing — essential for autonomous robots, smart city infrastructure, and space exploration, where quick adaptation and energy efficiency are paramount.
+
+Event-based sensing spans multiple modalities, including [vision](https://www.prophesee.ai/event-based-sensor-imx636-sony-prophesee/), [audio](https://link.springer.com/referenceworkentry/10.1007/978-1-4614-7320-6_118-1), and [touch](https://link.springer.com/referenceworkentry/10.1007/978-981-16-5540-1_117), and integrates naturally with neuromorphic computing platforms such as [SpiNNaker](https://www.humanbrainproject.eu/en/collaborate-hbp/innovation-industry/technology-catalogue/spinnaker/), [Speck](https://www.synsense.ai/products/speck-2/), [Loihi](https://www.intel.com/content/www/us/en/research/neuromorphic-computing.html), [BrainScaleS](https://brainscales.kip.uni-heidelberg.de/), and [Akida](https://brainchip.com/akida-neural-processor-soc/).
+
+---
+
+## 🏛️ A Brief History of Neuromorphic Engineering
+
+The story of neuromorphic engineering begins in the late 1980s at Caltech, with a simple but radical idea: *what if we built circuits that think like neurons?*
+
+---
+
+### Carver Mead — The Founder
+
+![Carver Mead and Misha Mahowald](Images/mishacarver.png)
+
+[Carver Mead](http://www.carvermead.caltech.edu/), Professor Emeritus at Caltech, is widely recognised as the founder of neuromorphic engineering. In the late 1980s, he introduced the concept of using **analog VLSI circuits** to mimic the neuro-biological architectures of the nervous system.
+
+His seminal work *A Silicon Model of Early Visual Processing*, co-authored with Misha Mahowald in 1988, demonstrated the potential of silicon-based neural systems. In 2024, Mead was honoured with a lifetime contribution award by the Misha Mahowald Prize committee.
+
+[📰 Read more at Caltech](https://www.caltech.edu/about/news/carver-mead-earns-lifetime-contribution-award-for-neuromorphic-engineering/)
+
+[![Carver Mead - Neuromorphic Engineering](https://img.youtube.com/vi/vznthE_AsVM/0.jpg)](https://www.youtube.com/watch?v=vznthE_AsVM)
+
+---
+
+### Misha Mahowald — The Silicon Retina
+
+[Misha Mahowald](https://direct.mit.edu/neco/article/35/3/343/113812/Neuromorphic-Engineering-In-Memory-of-Misha), one of Mead's doctoral students, developed the **first silicon retina** — an analog VLSI system that emulated the early visual processing of the human retina. Her groundbreaking work in the early 1990s on a silicon model of stereoscopic vision laid the foundation for all future neuromorphic vision systems.
+
+The **Misha Mahowald Prize** was established in her honour to recognise outstanding achievements in neuromorphic engineering.
+
+[![Misha Mahowald - Event-Based Vision](https://img.youtube.com/vi/dh8O5PuxyTk/0.jpg)](https://www.youtube.com/watch?v=dh8O5PuxyTk)
+
+---
+
+### Tobi Delbruck — Event-Based Cameras
+
+[Tobi Delbruck](https://www.eetimes.com/podcasts/tobi-delbruck-talks-caltech-cameras-and-neural-control/), Professor at the Institute of Neuroinformatics (INI), University of Zurich & ETH Zurich, has been central to advancing event-based vision sensors. Collaborating with Mead and Mahowald, he shaped the design of modern low-latency, low-power DVS cameras.
+
+[![Tobi Delbruck - Neuromorphic Vision](https://img.youtube.com/vi/Y1KBAFM1Iuc/0.jpg)](https://www.youtube.com/watch?v=Y1KBAFM1Iuc)
+
+---
+
+### Giacomo Indiveri — Neuromorphic Chips
+
+[Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html), Professor at INI Zurich/ETH, is a prominent figure in the development of bio-inspired computational architectures. His research focuses on hardware that mimics the brain's neural processes — particularly in real-time sensory processing — with direct implications for robotics and AI.
+
+[![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
+
+---
+
+### Key Figures in the Field
+
+| Researcher | Affiliation | Contribution |
+|---|---|---|
+| **Carver Mead** | Caltech | Founder of neuromorphic engineering; analog VLSI neural circuits |
+| **Misha Mahowald** | Caltech | First silicon retina; stereoscopic silicon vision |
+| **Tobi Delbruck** | INI Zurich / ETH | Event-based cameras; DVS sensor design |
+| **Kwabena Boahen** | Stanford | Brains in Silicon project; silicon neurons |
+| **Giacomo Indiveri** | INI Zurich / ETH | Neuromorphic chips; real-time sensory hardware |
+| **Shih-Chii Liu** | INI Zurich / ETH | Spike-based computation; audio sensing |
+| **Steve Furber** | University of Manchester | SpiNNaker massively parallel neuromorphic platform |
+| **Karlheinz Meier** *(1955–2018)* | Heidelberg | BrainScaleS; co-founder of European neuromorphic hardware |
+| **Chris Eliasmith** | University of Waterloo | Centre for Theoretical Neuroscience; NEF framework |
+
+---
+
+## 📷 What Are Event-Based Cameras?
 
 ![Silicon Retina](Images/siliconretina.png)
 
-Event-driven sensing and neuromorphic computing offer disruptive solutions to these challenges 
-by mimicking how biological brains perceive and process their surroundings, a critical step toward
-the next generation of robotic autonomy. Unlike conventional systems that process data at fixed
-intervals, event-driven systems react only when a change occurs in the environment. 
-Event-driven sensing encompasses a range of event-based sensors for [vision](https://www.prophesee.ai/event-based-sensor-imx636-sony-prophesee/), 
-[audio](https://link.springer.com/referenceworkentry/10.1007/978-1-4614-7320-6_118-1), and [touch](https://link.springer.com/referenceworkentry/10.1007/978-981-16-5540-1_117), 
-seamlessly integrating with neuromorphic platforms ([SpiNNaker](https://www.humanbrainproject.eu/en/collaborate-hbp/innovation-industry/technology-catalogue/spinnaker/),
-[Speck](https://www.synsense.ai/products/speck-2/), [BrainScaleS](https://brainscales.kip.uni-heidelberg.de/), [Loihi](https://www.intel.com/content/www/us/en/research/neuromorphic-computing.html), [Akida](https://brainchip.com/akida-neural-processor-soc/)) 
-to enable the construction of spiking neural networks for efficient computation.
-This shift enables low-latency, low-power, and highly efficient processing, essential for autonomous
-robots, smart city infrastructure, and space exploration — fields where quick adaptation, energy 
-efficiency, and data reduction are key.
+Unlike traditional cameras that capture full frames at fixed intervals (e.g. 30 or 60 fps), **event-based cameras** operate on a fundamentally different principle.
 
-Event-based information processing has gained significant [attention](https://www.eetimes.com/what-does-neuromorphic-mean-today/) from the scientific community 
-(and worldwide media such as [EE Times](https://www.eetimes.com/tag/neuromorphic/)) due to the promising results of early studies at 
-[Caltech University in the late 1980s](http://www.carvermead.caltech.edu/). The concept of neuromorphic computing has evolved, with its meaning changing 
-based on the level of emulation of neuron dynamics. This technology has attracted interest because 
-of the fundamental belief that nature and biology possess superior characteristics for solving daily
-tasks. 
+> **Each pixel is independent.** When a pixel detects a change in brightness — due to motion, lighting shifts, or other factors — it fires an **event** immediately. Static regions generate no data at all.
 
-## A Bit of History  
+Each event encodes four pieces of information:
 
-### Carver Mead  
+```
+Event = (x, y, t, p)
+         │  │  │  └─ polarity: ON (+1) or OFF (-1)
+         │  │  └──── timestamp (microsecond resolution)
+         │  └─────── pixel column
+         └────────── pixel row
+```
 
-[Carver Mead](http://www.carvermead.caltech.edu/), a professor at Caltech, is widely recognized as the founder of neuromorphic engineering. In the late 1980s, he introduced the concept of using analog VLSI circuits to mimic neuro-biological architectures present in the nervous system. His seminal work, *A Silicon Model of Early Visual Processing*, co-authored with Misha Mahowald in 1988, demonstrated the potential of silicon-based neural systems. In 2024, Mead was honored with a lifetime contribution award by the Misha Mahowald Prize committee for his foundational work in the field.  
-[Read more at Caltech](https://www.caltech.edu/about/news/carver-mead-earns-lifetime-contribution-award-for-neuromorphic-engineering/)  
+### Key Properties
 
-
-### Video:
-[![Carver Mead - Neuromorphic Engineering](https://img.youtube.com/vi/vznthE_AsVM/0.jpg)](https://www.youtube.com/watch?v=vznthE_AsVM)
-
-### Misha Mahowald  
-
-[Misha Mahowald](https://direct.mit.edu/neco/article/35/3/343/113812/Neuromorphic-Engineering-In-Memory-of-Misha), one of Mead's doctoral students, made significant contributions to neuromorphic engineering. She developed the first silicon retina, an analog VLSI system that emulated the early visual processing of the human retina. Her groundbreaking work in the early 1990s on a silicon model of stereoscopic vision provided a foundation for future neuromorphic vision systems. In her honor, the Misha Mahowald Prize was established to recognize outstanding achievements in neuromorphic engineering.  
-
-### Video:
-[![Misha Mahowald - Event-Based Vision](https://img.youtube.com/vi/dh8O5PuxyTk/0.jpg)](https://www.youtube.com/watch?v=dh8O5PuxyTk)
-
-
-### Tobi Delbruck  
-
-[Tobi Delbruck](https://www.eetimes.com/podcasts/tobi-delbruck-talks-caltech-cameras-and-neural-control/) is a professor at the Institute of Neuroinformatics at the University of Zurich and ETH Zurich. He has played a crucial role in advancing neuromorphic engineering, particularly in the development of event-based vision sensors. Collaborating with Mead and Mahowald, Delbruck has contributed significantly to silicon retinas and event-driven cameras, shaping the design of modern low-latency, low-power vision systems.  
-
-### Video:
-[![Tobi Delbruck - Neuromorphic Vision](https://img.youtube.com/vi/Y1KBAFM1Iuc/0.jpg)](https://www.youtube.com/watch?v=Y1KBAFM1Iuc)
-
-### Giacomo Indiveri  
-
-
-[Giacomo Indiveri](https://ee.ethz.ch/the-department/people-a-z/person-detail.Nzk0NzU=.TGlzdC8zMjc5LC0xNjUwNTg5ODIw.html) is a professor at the Institute of Neuroinformatics at the University of Zurich and ETH Zurich. He is a prominent figure in neuromorphic engineering, making significant advancements in the development of bio-inspired computational architectures. His research focuses on creating hardware that mimics the brain's neural processes, particularly in sensory processing and perception. Indiveri has been instrumental in designing neuromorphic chips and systems capable of real-time processing of sensory data, which has important implications for robotics and artificial intelligence. His contributions have fostered collaboration across disciplines, further advancing the field of neuromorphic computing.
-
-### Video:
-[![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
-
-
-## Key Figures in Neuromorphic Engineering  
-
-Here is a list of pioneers and leading researchers in the field of neuromorphic computing along with their affiliations:  
-
-- **Carver Mead** – Professor Emeritus, California Institute of Technology ([Caltech](https://www.caltech.edu/))  
-- **Misha Mahowald** – Former researcher, California Institute of Technology  
-- **Tobi Delbruck** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
-- **Kwabena Boahen** – Professor, Stanford University ([Stanford Brains in Silicon](https://web.stanford.edu/group/brainsinsilicon/))  
-- **Giacomo Indiveri** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
-- **Shih-Chii Liu** – Professor, Institute of Neuroinformatics, University of Zurich & ETH Zurich ([INI Zurich](https://www.ini.uzh.ch/))  
-- **Steve Furber** – Professor, University of Manchester, leader of SpiNNaker project ([SpiNNaker](https://www.cs.manchester.ac.uk/research/expertise/neuromorphic-computing/))  
-- **Karlheinz Meier** (1955–2018) – Physicist and co-founder of neuromorphic hardware projects ([BrainScaleS](https://brainscales.kip.uni-heidelberg.de/))  
-- **Chris Eliasmith** – Director of the Centre for Theoretical Neuroscience, University of Waterloo ([Waterloo CTN](https://uwaterloo.ca/))  
-
-This tutorial provides an introduction to event-driven sensing and neuromorphic computing, highlighting its historical origins and key contributors. The field continues to evolve, driving advancements in robotics, artificial intelligence, and low-power computing for real-world applications. 
-
-## What Are Event-Based Cameras?
-
-Unlike traditional cameras that capture full frames at fixed intervals—such
-as 30 or 60 frames per second—**event-based cameras** operate on a 
-fundamentally different principle. These innovative cameras are 
-engineered to detect and record **changes** in the scene on a pixel-by-pixel
-basis. Instead of capturing a complete image of the entire scene at once, 
-they only respond to what *moves* or *changes* in brightness, providing a
-more dynamic representation of the visual environment.
-
-In an event-based camera, each pixel functions independently. This means
-that when a pixel detects a change in brightness—whether due to motion, 
-lighting shifts, or other factors—it reacts immediately. Upon detecting a 
-change, the pixel emits an **event** instead of a traditional frame. This
-event contains information about the time and location of the change. As a
-result, static areas of the scene do not generate events, leading to a 
-significant reduction in the amount of data collected. This characteristic
-is particularly advantageous for conserving **memory** and **energy**.
-
-Event-based cameras are notable for their ultra-fast response time. They
-capture changes as they occur, enabling real-time processing with virtually
-no delay. This rapid response is crucial for applications that require 
-immediate feedback. Additionally, by focusing only on relevant changes in
-the scene, event-based cameras collect significantly less information than
-traditional cameras, making them highly efficient and suitable for devices
-with limited processing power and storage capacity.
-
-These cameras excel at capturing rapid movements, making them ideal
-for scenarios such as sports, aerial drones in flight, and autonomous
-vehicles navigating complex environments. Their ability to track fast-moving 
-objects with precision sets them apart from conventional imaging systems,
-allowing for more advanced applications in robotics and beyond.
+| Property | Traditional Camera | Event-Based Camera |
+|---|---|---|
+| Temporal resolution | ~ms (frame rate) | ~μs (per event) |
+| Dynamic range | ~60 dB | >120 dB |
+| Data redundancy | High (full frame) | Low (changes only) |
+| Power consumption | High | Very low |
+| Motion blur | Present | Absent |
+| Latency | Frame interval | ~1 μs |
 
 ![events](Images/example.gif)  
-*Copyright for the GIF: Arren Glover, Italian Institute of Technology*
+*Copyright: Arren Glover, Italian Institute of Technology*
 
-Event-based cameras[1], which mimic the initial 
-layers of the mammalian retina and react to pixel-level illumination 
-changes, offer a solution to the limitations of the frame-based cameras. 
-Unlike frame-based cameras, event-based sensors improve dynamic range,
-reduce latency, and generate an
-asynchronous event stream providing information of spatial coordinates, 
-polarity, and timestamps. This results in a significant reduction in data
-processing, making event-based cameras highly relevant for robotic 
-applications[2,3,4,5]. 
-Their inherent real-time response to luminance changes provides 
-an ideal sensory input for guiding subsequent visual attention actions.
-
-
-### References: 
-- [1] Lichtsteiner, P., Posch, C., & Delbruck, T. (2008). A 128x128 120dB 15us Latency Asynchronous Temporal Contrast Vision Sensor. IEEE Journal of Solid-State Circuits, 43(2), 566-576.**
-- [2] Monforte, Marco, et al. "Exploiting event cameras for spatio-temporal prediction of fast-changing trajectories." 2020 2nd IEEE International Conference on Artificial Intelligence Circuits and Systems (AICAS). IEEE, 2020.
-- [3] Mueggler, Elias, et al. "Continuous-time visual-inertial odometry for event cameras." IEEE Transactions on Robotics 34.6 (2018): 1425-1440.
-- [4] Iacono, Massimiliano, et al. "Towards event-driven object detection with off-the-shelf deep learning." 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2018.
-- [5] Glover, Arren, and Chiara Bartolozzi. "Robust visual tracking with a freely-moving event camera." 2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2017.
-- [6] Bartolozzi, Chiara, et al. "Embedded neuromorphic vision for humanoid robots." CVPR 2011 workshops. IEEE, 2011.
-
-
-![bm](Images/bmlogo.png)  
-
-If you want to know more about the history and advancements in neuromorphic 
-engineering and event-based sensing, check out the ["Brains and Machines"](https://brainsandmachines.net/) 
-podcast.  This podcast delves into the intersection of neuroscience, robotics, and artificial intelligence, featuring discussions with influential leading experts in the field and exploring the latest research and innovations.
-
-![bm](Images/bm.png)  
-
-
-# CTU Neuromorphic sensing and computing lecture at CTU: 
-
-Slides for the lecture can be found [CTU-Neuromorphic sensing and computing](CTULectureGiuliaDAngelo.pdf)
-
-
-# Google Form - Tutorial responses: 
-Google form with tutorial questions: [Link](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
-
-
-# Tutorial Overview
-## Tutorial 1 (A) - Time Window for Event-Based Data Visualization  
-
-This script demonstrates how to load and visualize event-based data from a Dynamic Vision Sensor (DVS). Unlike conventional cameras, a DVS detects brightness changes at each pixel asynchronously, providing high temporal resolution. Using the `importIitYarp` function from the Bimvee library, the script extracts event coordinates, timestamps, and polarities. Events are processed within fixed time windows, and the visualization updates dynamically in real time with OpenCV, showcasing the benefits of event-based vision for dynamic scene analysis.  
-
-[Tutorial1-EventBasedDataTimeWindow.py](Tutorial1-EventBasedDataTimeWindow.py)  
-
-![DVSdata](Images/attdata.png)  
-
-### Questions: 
-
-1. Understanding Event Cameras: How do event cameras differ from traditional frame-based cameras in terms of capturing dynamic scenes, and what advantages do they provide for analyzing fast-moving objects or changes in the environment?
-
-2. Data Extraction and Processing: After loading the event data, we extract the x and y coordinates, timestamps, and polarities of the events. How might these different attributes be useful in understanding the behavior of moving objects within a scene, and what additional processing steps could enhance the analysis of this data?
-
-3. Interactive Visualization: The script visualizes events in real-time within specified time windows. How might adjusting the window period affect the visualization of events, and what strategies could be employed to ensure that significant events are not missed or overwhelmed by noise during the visualization process?
+Event-based cameras mimic the initial layers of the mammalian retina, reacting to pixel-level illumination changes asynchronously [1]. This results in significant data reduction, making them highly relevant for robotic applications [2,3,4,5] — particularly for guiding visual attention and active perception.
 
 ---
 
-## Tutorial 1 (B) - Sliding Window for Event-Based Data Visualization  
+## 🎙️ Go Deeper: Brains & Machines Podcast
 
-This script extends time-windowed visualization by continuously updating the displayed events using a sliding window approach. Events from a DVS are loaded with Bimvee, processed within an initial time window, and updated dynamically by removing outdated events while adding new ones. ON and OFF events are tracked separately, and OpenCV provides real-time visualization. This approach is useful for understanding motion encoding and scene changes in neuromorphic cameras.  
+![bm](Images/bmlogo.png)
 
-[Tutorial1-EventBasedDataSlidingWindow.py](Tutorial1-EventBasedDataSlidingWindow.py)  
+Want to hear directly from the researchers shaping this field? Check out the [**Brains & Machines**](https://brainsandmachines.net/) podcast — episodes feature leading experts in neuromorphic engineering, event-based vision, and brain-inspired AI.
 
-### Questions: 
-
-
-1. Sliding Window Technique: How does the implementation of a sliding time window impact the way we visualize event data? What considerations should be made regarding the duration of the sliding window to ensure meaningful representations of the scene are captured?
+![bm](Images/bm.png)
 
 ---
 
-## Tutorial 1 (C) - Fixed Event Count for Event-Based Data Visualization  
+## 📑 Lecture Slides
 
-Instead of a time-based window, this script processes a fixed number of events per visualization cycle. It loads DVS data, extracts event properties, and updates the display in real time, ensuring a consistent event sampling rate. This method is useful for applications requiring precise event control, such as neuromorphic computing, object tracking, and motion analysis.  
-
-[Tutorial1-EventBasedDataNumberEvents.py](Tutorial1-EventBasedDataNumberEvents.py)  
-
-### Questions:
-
-1. Understanding Event Grouping: How does the fixed event count visualization approach differ from time-based visualization methods? What are the potential benefits and drawbacks of using a fixed number of events per visualization window in terms of capturing dynamic scenes?
-
-3. Real-Time Visualization Implications: What challenges might arise when visualizing events in fixed batches, particularly in a dynamic environment? How could the choice of batch size (e.g., 1000 events) affect the responsiveness and accuracy of the visualization?
+Full lecture slides: [CTU — Neuromorphic Sensing and Computing](CTULectureGiuliaDAngelo.pdf)
 
 ---
 
-## Tutorial 2: Loading IBM DVS Gesture Dataset  
+## 📋 Google Form — Tutorial Responses
 
-This tutorial explores and visualizes event-based data from the DVSGesture dataset, captured by a DVS. The sensor records scene changes with high temporal resolution, enabling detection of rapid movements. The script converts event data into frames representing positive and negative polarities, providing insight into the sensor's response to different stimuli. The final output displays these frames side by side for a comprehensive analysis of event-based vision systems.  
-
-[Tutorial2-EventBasedData.py](Tutorial2-EventBasedData.py)  
-
-![ibmdvs](Images/IBMDVS.png)  
-
-### Questions:
-
-1. Try experimenting with different values for user_trial and time_window. How do these changes affect the visualization and interpretation of the data?
+Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
 
 ---
 
-## Tutorial 3(A): Play with Neurons
-This script provides a comprehensive simulation of the Leaky Integrate-and-Fire (LIF) neuron model, a widely used framework in computational neuroscience for understanding neuronal dynamics. The LIF model effectively captures key characteristics of spiking behavior by representing how a neuron integrates incoming signals and leaks potential over time. In this simulation, the neuron's membrane potential is visualized dynamically in response to an external input current, which consists of short pulses. By observing how the neuron reacts to these inputs, users can gain insights into the fundamental processes underlying neuronal firing and the intricate balance between excitation and inhibition in neural networks.
+## 🗂️ Tutorial Overview
 
-[Tutorial3-Neuron.py](Tutorial3-Neuron.py)  
+The tutorials below are organised in increasing complexity — from raw event data visualisation to full spiking neural network pipelines. Each tutorial builds on the previous one.
 
-![neuron](Images/lif_neuron_with_input.gif)  
+```
+Tutorial 1A → 1B → 1C    Event data: time window → sliding window → fixed count
+Tutorial 2                DVS Gesture Dataset
+Tutorial 3A → 3B          Single neuron simulation (LIF model)
+Tutorial 4                Spiking Neural Networks (Brian)
+Tutorial 5                SNN Visual Attention
+Tutorial 6                Log-Polar Retinal Structure
+Tutorial 7                SNN Object Motion Sensitivity
+```
 
-### Questions:
-1. Modifying Input Current: How would you change the amplitude and duration of the input current pulses? Try adjusting the values in the I_ext array or the parameters used to define pulse_times and observe how it affects the neuron's firing behavior.
-Exploring Neuron Parameters:
+---
 
-2. Exploring Neuron Parameters: What happens if you modify the LIF parameters, such as Cm, gL, or VT? Experiment by increasing or decreasing these values and observe how the membrane potential and spiking behavior change in the animation. Can you identify the impact of each parameter on the neuron's dynamics?
-Adding More Pulses:
+### Tutorial 1A — Time Window for Event-Based Data Visualisation
 
-3. Adding More Pulses: Can you modify the code to introduce more input current pulses within the simulation time (e.g., add more pulses or change their timing)? Try to create a pattern of input that leads to a different firing rate of the neuron and describe what you observe in the membrane potential graph.
+**Script:** [`Tutorial1-EventBasedDataTimeWindow.py`](Tutorial1-EventBasedDataTimeWindow.py)
 
+This script introduces event-based data loading and visualisation using the `importIitYarp` function from the **Bimvee** library. Events are processed within **fixed time windows** and displayed dynamically in real time using OpenCV.
 
-## Tutorial 3(B): Play with sinabs library
-This script simulates a single neuron by injecting current to observe its membrane potential dynamics.
-Based on the Sinabs documentation.
+![DVSdata](Images/attdata.png)
 
-[Tutorial3-Neuron_sinabs](Tutorial3-Neuron_sinabs.py)  
+> 💡 **Key concept:** A fixed time window captures all events that occur within a defined interval [t, t+Δt]. This is the simplest way to batch asynchronous events for visualisation or processing.
 
-![neuron](Images/neuronsinabs.png)  
+**Questions:**
+1. How do event cameras differ from traditional frame-based cameras, and what advantages do they provide for fast-moving scenes?
+2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
+3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
 
-### Questions:
+---
 
-1. How does the membrane time constant (tau_mem) affect the neuron’s membrane potential dynamics in the Leaky Integrate-and-Fire (LIF) model?
+### Tutorial 1B — Sliding Window for Event-Based Data Visualisation
 
-2. What role does the torch.no_grad() context play in the simulation, and why is it used in this script?
+**Script:** [`Tutorial1-EventBasedDataSlidingWindow.py`](Tutorial1-EventBasedDataSlidingWindow.py)
 
-## Tutorial 4: Play with Spiking Neural Networks (Brian)
+This script extends the time-window approach with a **sliding window** that continuously updates: old events are removed as new ones arrive, providing a smoothly evolving view of the scene. ON and OFF events are tracked separately.
 
-In this section of the code, we create a group of neurons using the NeuronGroup class, specifying the total number of neurons (N) and the governing equations defined in eqs. Each neuron is designed to generate a spike when its membrane potential (v) exceeds a threshold of 1, at which point the potential is reset to 0, simulating the firing and recovery process typical of biological neurons. To model the refractory period—a brief interval during which a neuron is unable to fire again after spiking—we incorporate a refractory time of 5 milliseconds. This setup ensures that the dynamics of neuron firing are accurately captured, and by using the method='exact' parameter, we ensure that the equations are solved with precision at each time step, allowing for a realistic simulation of neuronal activity over time.
+> 💡 **Key concept:** A sliding window preserves temporal continuity. Unlike the fixed window, it never "resets" — it shifts forward, always showing the most recent Δt of activity.
 
-[Tutorial4-SpikingNeuralNetwork.py](Tutorial4-SpikingNeuralNetwork.py)  
+**Questions:**
+1. How does the sliding window change the way motion and scene dynamics are represented compared to a fixed window? What are the trade-offs in choosing window duration?
 
-![SNN](Images/snn.png)  
+---
 
-### Questions: 
+### Tutorial 1C — Fixed Event Count for Event-Based Data Visualisation
 
-1. Effect of Neuron Count: How does changing the number of neurons (variable N) in the simulation affect the overall spiking activity and the firing rate of the network? Try modifying the value of N and observe the differences in the plots. What insights can you gather about the relationship between the number of neurons and network dynamics?
+**Script:** [`Tutorial1-EventBasedDataNumberEvents.py`](Tutorial1-EventBasedDataNumberEvents.py)
 
-2. Time Constant Variation: What happens to the spiking behavior of the neurons when you adjust the time constant (tau)? Experiment with different values (e.g., 5 ms, 20 ms, 50 ms) and analyze how the membrane potential's response to changes in v0 and incoming spikes is influenced. How does this impact the firing rate and the pattern of spikes?
+Instead of a time-based window, this script processes a **fixed number of events** per visualisation cycle, ensuring a consistent sampling rate regardless of scene activity.
 
-3. Baseline Potential Exploration: The baseline potential (v0) is initialized based on the neuron's index. If you were to change the equation used to set G.v0 to something more random (e.g., G.v0 = 'rand()*v0_max'), how would this affect the spiking patterns? Investigate the new patterns generated and discuss what this randomness might represent in a biological context.
+> 💡 **Key concept:** In low-activity scenes, a fixed event count window covers a longer time span; in high-activity scenes, it covers a shorter one. This is useful when downstream processing (e.g. a neural network) expects a fixed-size input.
 
-## Tutorial 5: Play with SNN Visual Attention
+**Questions:**
+1. How does fixed-count visualisation differ from time-based methods? What are the benefits and drawbacks for capturing dynamic scenes?
+2. What challenges arise when choosing batch size (e.g. 1000 events) in terms of responsiveness and accuracy?
 
-This script implements a saliency-based attention mechanism using event-driven data, allowing for the dynamic processing and visualization of significant features in a scene. By analyzing a stream of events representing two objects, the script generates a saliency map that highlights areas of interest based on configurable parameters governing attention arcs and kernels. Leveraging PyTorch for efficient computations and OpenCV for real-time visualization, the pipeline consists of loading event data, initializing the attention network, and iterating through the events to continuously update the saliency map. Key components include a configuration class for parameter management, an initialization function for the attention network, and a processing function that extracts saliency from incoming event data. This approach demonstrates how neuromorphic attention models can be applied to dynamic visual input, providing a foundation for real-time focus mechanisms in robotic vision and artificial intelligence systems.
+---
 
-Please, download the data for the tutorial [HERE](https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy?rlkey=w33wyjx3jme95eimjg6srw6u7&st=c99r18fz&dl=0)
+### Tutorial 2 — Loading the IBM DVS Gesture Dataset
 
-[Tutorial5-EventBasedSNNVisualAttention](Tutorial5-EventBasedSNNVisualAttention.py)
+**Script:** [`Tutorial2-EventBasedData.py`](Tutorial2-EventBasedData.py)
 
-![attention](Images/attention.png)  
+This tutorial explores the **DVSGesture dataset** — a standard benchmark in neuromorphic vision. The script converts event streams into frames representing positive and negative polarities, displayed side by side for a comprehensive view of the sensor's response.
 
-### Questions:
-1. Why is a time window (window_period = 100 ms) used in the attention mechanism, and how does it affect the saliency computation?
-2. What role does the run_attention function play in updating the saliency map, and how is the most salient location determined?
+![ibmdvs](Images/IBMDVS.png)
 
-## Tutorial 6: LogPolar retinal structure
+> 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
 
-You will create a retina with eccentric receptive fields, 128x128 receptive fields and plot the raster plot.
-The eccentric receptive fields are created by using the `eccentricity` parameters in the `create_eccentric_RFs()` function.
-The parameters are in helpers/config.py file.
-In this script you will also plot the eccentric structure and the Look Up Table (LUT) of the receptive fields.
-The LUT will be created so that it'll speed up the process of finding the receptive field of a given neuron.
+**Questions:**
+1. Experiment with different values for `user_trial` and `time_window`. How do these changes affect the visualisation and interpretation of the data?
 
-References: [Chessa, M., Maiello, G., Bex, P. J., & Solari, F. (2016). A space-variant model for motion interpretation across the visual field. Journal of vision, 16(2), 12-12.](https://jov.arvojournals.org/article.aspx?articleid=2498961)
+---
 
-[Tutorial6-LogPolarRetina](Tutorial6-LogPolarRetina.py)
+### Tutorial 3A — Play with Neurons (LIF Model)
 
-![logpolar](Images/tutorialeccentricretina.gif)  
+**Script:** [`Tutorial3-Neuron.py`](Tutorial3-Neuron.py)
 
-### Questions:
+This script simulates a **Leaky Integrate-and-Fire (LIF)** neuron — the most widely used model in computational neuroscience. The membrane potential is visualised dynamically in response to external input current pulses.
 
+![neuron](Images/lif_neuron_with_input.gif)
 
-1. How does the rescaling of the rho value in the rescale_rho function ensure that receptive fields are properly distributed within the plot dimensions? Explain the significance of the nonlinearity parameter a in this process.
+> 💡 **Key concept:** The LIF model captures the essential dynamics of biological neurons: integrate incoming charge, leak over time, fire when a threshold is reached, then reset. It is computationally simple yet biologically meaningful.
 
-2. What role does the gaussian_plot function play in visualizing the receptive fields of neurons, and how does it relate to the membrane potential of the neurons and spike generation over time?
+```
+dV/dt = (-(V - V_rest) + R·I(t)) / τ_m
 
+If V ≥ V_threshold  →  spike emitted, V reset to V_rest
+```
 
-## Tutorial 7: SNN Object Motion Sensitivity
+**Questions:**
+1. How does changing the amplitude and duration of input current pulses affect the neuron's firing behaviour?
+2. What happens when you modify LIF parameters such as `Cm`, `gL`, or `VT`? Can you identify the role of each parameter?
+3. Can you introduce additional input pulses to produce a different firing rate? What does this represent biologically?
 
-This tutorial demonstrates the implementation of an SNN object motion segmentation system using neuromorphic
-vision processing techniques. The system employs Optimized Motion Sensitivity (OMS) cells to
-analyze event-based frames and generate motion segmentation. The tutorial covers key steps
-including kernel generation, neural network initialization, and the processing pipeline to
-detect local motion differences between center and surround regions. The output consists of an
-OMS-generated motion map, which can be compared with ground-truth segmentation masks.
+---
 
+### Tutorial 3B — Play with the Sinabs Library
 
-References: [D'Angelo, Giulia, et al. "Wandering around: A bioinspired approach to visual attention through object motion sensitivity." arXiv preprint arXiv:2502.06747 (2025).](https://arxiv.org/abs/2502.06747)
+**Script:** [`Tutorial3-Neuron_sinabs.py`](Tutorial3-Neuron_sinabs.py)
 
+This script uses the **Sinabs** library to simulate a single LIF neuron with injected current, based on the [Sinabs documentation](https://sinabs.ai/).
 
-Please, download the data for the tutorial [HERE](https://www.dropbox.com/scl/fo/g5j17yh6elrc61s66aiba/AO2lSvWa5oLlZYhc0V2CNkw?rlkey=w0hgpsbd2mjvbfp4vrtdm5bhe&st=hi09k9to&dl=0)
+![neuron](Images/neuronsinabs.png)
 
-[Tutorial7-OMS](Tutorial7-OMS.py)
+**Questions:**
+1. How does the membrane time constant (`tau_mem`) affect the neuron's membrane potential dynamics?
+2. What role does `torch.no_grad()` play in the simulation, and why is it used?
+
+---
+
+### Tutorial 4 — Play with Spiking Neural Networks (Brian2)
+
+**Script:** [`Tutorial4-SpikingNeuralNetwork.py`](Tutorial4-SpikingNeuralNetwork.py)
+
+This tutorial introduces **network-level** spiking dynamics using the **Brian2** simulator. A population of LIF neurons is defined with governing equations, thresholds, resets, and refractory periods. Network activity is recorded and visualised.
+
+![SNN](Images/snn.png)
+
+> 💡 **Key concept:** Real neural computation emerges at the *network* level — not from individual neurons. This tutorial demonstrates how collective spiking patterns arise from population dynamics, which underpins everything from sensory coding to decision-making.
+
+**Questions:**
+1. How does changing the number of neurons `N` affect spiking activity and the firing rate of the network?
+2. What happens to spiking behaviour when you adjust the time constant `tau`? Experiment with 5 ms, 20 ms, and 50 ms.
+3. What would happen if you randomised the baseline potential `v0`? What might this represent biologically?
+
+---
+
+### Tutorial 5 — SNN Visual Attention
+
+**Script:** [`Tutorial5-EventBasedSNNVisualAttention.py`](Tutorial5-EventBasedSNNVisualAttention.py)
+
+📥 **Download data:** [twoobjects.npy](https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy?rlkey=w33wyjx3jme95eimjg6srw6u7&st=c99r18fz&dl=0)
+
+This tutorial implements a **saliency-based attention mechanism** using event-driven data. A saliency map is generated dynamically, highlighting areas of interest in a scene with two moving objects. The pipeline uses PyTorch for computation and OpenCV for real-time display.
+
+![attention](Images/attention.png)
+
+> 💡 **Key concept:** This tutorial connects directly to the NPC Lab's research on **active vision for robotics** — the idea that a robot should not process everything equally, but focus its limited resources on the most behaviourally relevant parts of the scene.
+
+**Questions:**
+1. Why is a time window (`window_period = 100 ms`) used in the attention mechanism, and how does it affect saliency computation?
+2. What role does the `run_attention` function play in updating the saliency map, and how is the most salient location determined?
+
+---
+
+### Tutorial 6 — Log-Polar Retinal Structure
+
+**Script:** [`Tutorial6-LogPolarRetina.py`](Tutorial6-LogPolarRetina.py)
+
+This tutorial builds a biologically plausible **retina model with eccentric receptive fields**, replicating the log-polar spatial organisation of the mammalian fovea. A Look-Up Table (LUT) is constructed to accelerate event-to-neuron mapping.
+
+![logpolar](Images/tutorialeccentricretina.gif)
+
+> 💡 **Key concept:** The human retina does not sample space uniformly — it is highly precise at the fovea (centre) and coarser in the periphery. This log-polar structure is enormously efficient and is the biological motivation for foveated active vision systems.
+
+**Reference:** Chessa et al., *A space-variant model for motion interpretation across the visual field*, Journal of Vision, 2016. [DOI](https://jov.arvojournals.org/article.aspx?articleid=2498961)
+
+**Questions:**
+1. How does the `rescale_rho` function ensure that receptive fields are properly distributed within plot dimensions? What is the role of the nonlinearity parameter `a`?
+2. What role does the `gaussian_plot` function play in visualising receptive fields, and how does it relate to membrane potential dynamics and spike generation?
+
+---
+
+### Tutorial 7 — SNN Object Motion Sensitivity
+
+**Script:** [`Tutorial7-OMS.py`](Tutorial7-OMS.py)
+
+📥 **Download data:** [Dropbox link](https://www.dropbox.com/scl/fo/g5j17yh6elrc61s66aiba/AO2lSvWa5oLlZYhc0V2CNkw?rlkey=w0hgpsbd2mjvbfp4vrtdm5bhe&st=hi09k9to&dl=0)
+
+This tutorial implements an **Object Motion Sensitivity (OMS)** network — a biologically inspired mechanism for motion segmentation. The system analyses event-based frames using centre-surround spatial kernels to detect *local* motion differences, producing a motion segmentation map comparable with ground-truth masks.
 
 ![oms](Images/oms.png)
 
-### Questions:
+> 💡 **Key concept:** OMS cells are modelled on retinal ganglion cells that respond selectively to objects moving differently from their background. This is directly related to the NPC Lab's work on bioinspired visual attention — see [D'Angelo et al., arXiv:2502.06747, 2025](https://arxiv.org/abs/2502.06747).
 
-1. How does the difference between center and surround responses contribute to motion segmentation in the OMS network?
+**Questions:**
+1. How does the difference between centre and surround responses contribute to motion segmentation in the OMS network?
+2. Why is it important to normalise the Gaussian kernels in the `gaussian_kernel` function, and how does this affect the processing of event-based frames?
 
-2. Why is it important to normalize the Gaussian kernels in the gaussian_kernel function, and how does this affect the processing of event-based frames?
+---
+
+## 📚 References
+
+1. Lichtsteiner, P., Posch, C., & Delbruck, T. (2008). A 128×128 120dB 15μs Latency Asynchronous Temporal Contrast Vision Sensor. *IEEE Journal of Solid-State Circuits*, 43(2), 566–576.
+2. Monforte, M., et al. (2020). Exploiting event cameras for spatio-temporal prediction of fast-changing trajectories. *IEEE AICAS 2020*.
+3. Mueggler, E., et al. (2018). Continuous-time visual-inertial odometry for event cameras. *IEEE Transactions on Robotics*, 34(6), 1425–1440.
+4. Iacono, M., et al. (2018). Towards event-driven object detection with off-the-shelf deep learning. *IEEE/RSJ IROS 2018*.
+5. Glover, A., & Bartolozzi, C. (2017). Robust visual tracking with a freely-moving event camera. *IEEE/RSJ IROS 2017*.
+6. Bartolozzi, C., et al. (2011). Embedded neuromorphic vision for humanoid robots. *CVPR Workshops 2011*.
+7. D'Angelo, G., et al. (2025). Wandering around: A bioinspired approach to visual attention through object motion sensitivity. *arXiv:2502.06747*.
+8. D'Angelo, G., et al. (2026). A benchmarking framework for embodied neuromorphic agents. *Nature Machine Intelligence*. DOI: 10.1038/s42256-026-01197-w.
+
+---
+
+*NPC Lab — Czech Technical University in Prague | Faculty of Electrical Engineering | Department of Cybernetics*  
+*Contact: [giulia.dangelo@fel.cvut.cz](mailto:giulia.dangelo@fel.cvut.cz)*
