@@ -1,45 +1,53 @@
-"""
+'''
+================================================================================
+Tutorial 1B — Sliding Window for Event-Based Data Visualisation
+================================================================================
+NPC Lab — Czech Technical University in Prague
+Giulia D'Angelo | giulia.dangelo@fel.cvut.cz
 
-Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
+In this script we extend the fixed time window approach from Tutorial 1A with
+a SLIDING window. Rather than resetting at the end of each interval, the window
+moves forward continuously — old events are removed as new ones arrive, giving
+a smooth, temporally consistent view of scene activity.
 
-Event-Based Vision: Sliding Window Visualization
+Two parameters control the behaviour:
+    initial_window_period — how many milliseconds of events are held at once
+    sliding_wdw           — how far the window advances at each step (ms)
 
-This script processes event-based vision data from a Dynamic Vision Sensor (DVS).
-It loads event data, applies a sliding time window, and visualizes positive and
-negative events separately.
+A smaller sliding_wdw gives smoother motion but higher computational cost.
+A larger one is faster but produces a more flickering visualisation.
 
-Key Concepts:
-- **Event-based vision**: Unlike conventional cameras, a DVS captures changes
-  in the scene asynchronously, storing pixel locations, timestamps, and polarities.
-- **Sliding time window**: A fixed-duration window of events is displayed,
-  continuously updating over time to show the most recent activity.
+Press Q to quit the visualisation.
+================================================================================
+'''
 
-Steps:
-1. Load event data from the Bimvee library.
-2. Initialize matrices for tracking positive and negative events.
-3. Process events within an initial time window.
-4. Apply a sliding window to continuously update the visualization.
-5. Display the processed events in real time using OpenCV.
-"""
+# ── Imports ───────────────────────────────────────────────────────────────────
 
-from bimvee.importIitYarp import importIitYarp
-import matplotlib
-from helpers.helpers import sliding_window
+from bimvee.importIitYarp import importIitYarp  # Load IIT-YARP event data
+import matplotlib                               # Plotting backend
+from helpers.helpers import sliding_window      # Sliding-window visualisation loop
 
-# Set the backend for Matplotlib to 'TkAgg' to enable interactive plotting
-matplotlib.use('TkAgg')
+matplotlib.use('TkAgg')  # Required for interactive OpenCV windows
 
-# Define camera parameters (resolution of the sensor)
-width = 304
-height = 240
-initial_window_period = 300  # Initial time window in milliseconds
-sliding_wdw = 10          # Sliding window duration in milliseconds
-time_buff = sliding_wdw # Buffer for managing event updates
 
-# Load event data from the specified file
-camera_events = 'right'  # Specify the camera side ('left' or 'right')
-codec = '24bit'  # Codec format for event data
-filePathOrName = 'data/attention-multiobjects/'  # Path to event dataset
+# ── Parameters ────────────────────────────────────────────────────────────────
+
+width                = 304    # DVS camera width  (pixels)
+height               = 240    # DVS camera height (pixels)
+initial_window_period = 100   # Initial time window size (ms)
+sliding_wdw          = 10     # Step size the window advances each update (ms)
+time_buff            = sliding_wdw  # Internal buffer — initialised to sliding_wdw
+
+camera_events        = 'right'                        # Camera stream to visualise
+codec                = '24bit'                        # Event data encoding format
+filePathOrName       = 'data/attention-multiobjects/' # Path to the dataset
+
+
+# ── Load Events ───────────────────────────────────────────────────────────────
+
 events = importIitYarp(filePathOrName=filePathOrName, codec=codec)
+
+
+# ── Visualise ─────────────────────────────────────────────────────────────────
 
 sliding_window(events, camera_events, height, width, initial_window_period, sliding_wdw, time_buff)

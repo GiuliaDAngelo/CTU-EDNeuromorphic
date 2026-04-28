@@ -234,9 +234,11 @@ Instead of a time-based window, this script processes a **fixed number of events
 
 > 💡 **Key concept:** In low-activity scenes, a fixed event count window covers a longer time span; in high-activity scenes, it covers a shorter one. This is useful when downstream processing (e.g. a neural network) expects a fixed-size input.
 
-**Optional Questions:**
-1. How does fixed-count visualisation differ from time-based methods? What are the benefits and drawbacks for capturing dynamic scenes?
-2. What challenges arise when choosing batch size (e.g. 1000 events) in terms of responsiveness and accuracy?
+**Question:** 
+1. What happens if `sliding_wdw` equals `initial_window_period`?
+
+**Optional Question:** 
+2. In a scene where nothing is moving, how many events would a fixed-count window generate compared to a time-based window? Explain why.
 
 ---
 

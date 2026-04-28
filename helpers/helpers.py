@@ -50,48 +50,51 @@ def time_window(events, camera_events,height, width,window_period):
 
 
 def sliding_window(events, camera_events, height, width, initial_window_period, sliding_wdw, time_buff):
-    # Extract event data (X, Y coordinates, timestamps, and polarity)
-    e_x = events['data'][camera_events]['dvs']['x']  # X-coordinates of events
-    e_y = events['data'][camera_events]['dvs']['y']  # Y-coordinates of events
-    e_ts = np.multiply(events['data'][camera_events]['dvs']['ts'], 10 ** 3)  # Convert timestamps to milliseconds
-    e_pol = events['data'][camera_events]['dvs']['pol']  # Event polarity (1 = ON, 0 = OFF)
+    # Extract event data
+    e_x = events['data'][camera_events]['dvs']['x']
+    e_y = events['data'][camera_events]['dvs']['y']
+    e_ts = np.multiply(events['data'][camera_events]['dvs']['ts'], 10 ** 3)  # to ms
+    e_pol = events['data'][camera_events]['dvs']['pol']
 
-    # Initialize sliding window visualization arrays
-    sliding_window_pos = np.zeros((height, width), dtype=np.uint8)  # Stores ON events
-    sliding_window_neg = np.zeros((height, width), dtype=np.uint8)  # Stores OFF events
-    event_queue = deque()  # Queue to track events within the window
+    # Initialise visualisation frames and event queue
+    sliding_window_pos = np.zeros((height, width), dtype=np.uint8)
+    sliding_window_neg = np.zeros((height, width), dtype=np.uint8)
+    event_queue = deque()
 
-    # Process the initial window of events
     for x, y, ts, pol in zip(e_x, e_y, e_ts, e_pol):
+
+        # ── Phase 1: fill the initial window ──────────────────────────────────
         if ts <= initial_window_period:
-            # Assign event polarity to the correct visualization matrix
             if pol == 1:
-                sliding_window_pos[y][x] = 255  # Mark ON events in white
+                sliding_window_pos[y][x] = 255
             else:
-                sliding_window_neg[y][x] = 255  # Mark OFF events in white
-            event_queue.append((x, y, ts, pol))  # Store the event for future updates
+                sliding_window_neg[y][x] = 255
+            event_queue.append((x, y, ts, pol))
+
+        # ── Phase 2: sliding update ────────────────────────────────────────────
         else:
-            # Start processing sliding window updates
-            if ts <= initial_window_period + time_buff:
-                # Remove old events outside the sliding window
-                while event_queue and event_queue[0][2] < ts - initial_window_period:
-                    old_event = event_queue.popleft()
-                    x_old, y_old, ts_old, pol_old = old_event
-                    if pol_old == 1:
-                        sliding_window_pos[y_old][x_old] = 0  # Remove old ON event
-                    else:
-                        sliding_window_neg[y_old][x_old] = 0  # Remove old OFF event
-                # Add new event to visualization
-                if pol == 1:
-                    sliding_window_pos[y][x] = 255
-                else:
-                    sliding_window_neg[y][x] = 255
-                event_queue.append((x, y, ts, pol))  # Store event in queue
-            else:
-                # Update display and allow continuous visualization
-                cv2.imshow('Event Pos and Neg', np.hstack((sliding_window_pos, sliding_window_neg)))
+            # If ts has jumped more than one step ahead, keep displaying and
+            # advancing the buffer until the window catches up
+            while ts > initial_window_period + time_buff:
+                cv2.imshow('Event Pos and Neg',
+                           np.hstack((sliding_window_pos, sliding_window_neg)))
                 cv2.waitKey(1)
-                time_buff += sliding_wdw  # Expand time buffer for next updates
+                time_buff += sliding_wdw
+
+            # Remove events that have fallen outside the sliding window
+            while event_queue and event_queue[0][2] < ts - initial_window_period:
+                old_x, old_y, _, old_pol = event_queue.popleft()
+                if old_pol == 1:
+                    sliding_window_pos[old_y][old_x] = 0
+                else:
+                    sliding_window_neg[old_y][old_x] = 0
+
+            # Add the current event
+            if pol == 1:
+                sliding_window_pos[y][x] = 255
+            else:
+                sliding_window_neg[y][x] = 255
+            event_queue.append((x, y, ts, pol))
 
 
 def number_events(events, camera_events, height, width, num_events):
