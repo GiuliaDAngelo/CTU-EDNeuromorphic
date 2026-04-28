@@ -23,7 +23,7 @@ dvs_training = tonic.datasets.DVSGesture(path, train=True)
 
 # Define parameters for the event processing
 time_window = 10000  # Time window in microseconds (10 ms)
-user_trial = 1      # Index of the user trial to analyze
+user_trial = 10      # Index of the user trial to analyze
 
 # Load events and corresponding numpy data for the specified trial
 events, npys = dvs_training[user_trial]
