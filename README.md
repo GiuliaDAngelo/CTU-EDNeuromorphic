@@ -25,6 +25,8 @@ By the end of this series, you will be able to:
 
 The [**Neuroinspired Perception and Cognition (NPC) Lab**](https://giuliadangelo.github.io/html/npclab.html), led by [Assistant Professor Giulia D'Angelo](https://www.giuliadangelo.com/), operates within the Department of Cybernetics at CTU's Faculty of Electrical Engineering. The lab is funded through the **ENDEAVOUR Marie Skłodowska-Curie Fellowship** (2024–2026) and the **PIONEER GAČR grant** (2026–2028).
 
+![NPClab](Images/NPClab.png)
+
 ### Research Focus
 
 | Theme | Description |
