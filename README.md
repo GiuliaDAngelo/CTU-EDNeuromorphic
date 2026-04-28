@@ -130,7 +130,7 @@ Each event encodes four pieces of information:
 
 ```
 Event = (x, y, t, p)
-         │  │  │  └─ polarity: ON (+1) or OFF (-1)
+         │  │  │  └─ polarity: ON (increment of light) or OFF (decrement of light)
          │  │  └──── timestamp (microsecond resolution)
          │  └─────── pixel column
          └────────── pixel row
