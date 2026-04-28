@@ -250,7 +250,7 @@ Instead of a time-based window, this script processes a **fixed number of events
 
 ### Tutorial 2 — Loading the IBM DVS Gesture Dataset
 
-**Script:** [`Tutorial2-EventBasedData.py`](oldTutorial2-EventBasedData.py)
+**Script:** [`Tutorial2-EventBasedData.py`](Tutorial2-EventBasedData.py)
 
 This tutorial explores the **DVSGesture dataset** — a standard benchmark in neuromorphic vision. The script converts event streams into frames representing positive and negative polarities, displayed side by side for a comprehensive view of the sensor's response.
 
@@ -266,7 +266,7 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 
 ### Tutorial 3A — Play with Neurons (LIF Model)
 
-**Script:** [`Tutorial3-Neuron.py`](Tutorial3-Neuron.py)
+**Script:** [`Tutorial3A-Neuron.py`](Tutorial3A-Neuron.py)
 
 This script simulates a **Leaky Integrate-and-Fire (LIF)** neuron — the most widely used model in computational neuroscience. The membrane potential is visualised dynamically in response to external input current pulses.
 
@@ -289,7 +289,7 @@ If V ≥ V_threshold  →  spike emitted, V reset to V_rest
 
 ### Tutorial 3B — Play with the Sinabs Library
 
-**Script:** [`Tutorial3-Neuron_sinabs.py`](Tutorial3-Neuron_sinabs.py)
+**Script:** [`Tutorial3B-Neuron_sinabs.py`](Tutorial3B-Neuron_sinabs.py)
 
 This script uses the **Sinabs** library to simulate a single LIF neuron with injected current, based on the [Sinabs documentation](https://sinabs.ai/).
 
@@ -303,7 +303,9 @@ This script uses the **Sinabs** library to simulate a single LIF neuron with inj
 
 ### Tutorial 4 A & B — Play with Spiking Neural Networks (Brian2)
 
-**Script:** [`Tutorial4-SpikingNeuralNetwork.py`](Tutorial4-SpikingNeuralNetwork.py)
+**Script:** [`Tutorial4A-SpikingNeuralNetwork.py`](Tutorial4A-SpikingNeuralNetwork.py)
+
+**Script:** [`Tutorial4B-SpikingNeuralNetwork.py`](Tutorial4B-SpikingNeuralNetwork.py)
 
 This tutorial introduces **network-level** spiking dynamics using the **Brian2** simulator. A population of LIF neurons is defined with governing equations, thresholds, resets, and refractory periods. Network activity is recorded and visualised.
 
@@ -317,7 +319,9 @@ This tutorial introduces **network-level** spiking dynamics using the **Brian2**
 
 ### Tutorial 5 A & B — SNN Visual Attention
 
-**Script:** [`Tutorial5-EventBasedSNNVisualAttention.py`](Tutorial5A-EventBasedSNNVisualAttention.py)
+**Script:** [`Tutorial5A-EventBasedSNNVisualAttention.py`](Tutorial5A-EventBasedSNNVisualAttention.py)
+
+**Script:** [`Tutorial5B-VisualAttentionInhibition.py`](Tutorial5B-VisualAttentionInhibition.py)
 
 📥 **Download data:** [twoobjects.npy](https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy?rlkey=w33wyjx3jme95eimjg6srw6u7&st=c99r18fz&dl=0)
 
