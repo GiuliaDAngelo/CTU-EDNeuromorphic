@@ -210,6 +210,7 @@ This script introduces event-based data loading and visualisation using the `imp
 
 **Optional Questions for Brainstorming:**
 2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
+
 3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
 
 ---
