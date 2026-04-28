@@ -122,6 +122,7 @@ The **Misha Mahowald Prize** was established in her honour to recognise outstand
 
 ![Silicon Retina](Images/siliconretina.png)
 
+You can come and see the original silicon retina paper by Misha Mahowald at the NPC Lab — it is framed on the wall!
 Unlike traditional cameras that capture full frames at fixed intervals (e.g. 30 or 60 fps), **event-based cameras** operate on a fundamentally different principle.
 
 > **Each pixel is independent.** When a pixel detects a change in brightness — due to motion, lighting shifts, or other factors — it fires an **event** immediately. Static regions generate no data at all.
