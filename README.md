@@ -10,7 +10,7 @@
 
 ## 🧠 About This Course
 
-This tutorial series is part of the **Neuroinspired Perception and Cognition (NPC) Lab** teaching activities at Czech Technical University in Prague. It introduces students to the principles of event-driven sensing and neuromorphic computing — a paradigm shift in how machines perceive and process the world.
+This tutorial series is part of the [**Neuroinspired Perception and Cognition (NPC) Lab**](https://giuliadangelo.github.io/html/npclab.html) teaching activities at Czech Technical University in Prague. It introduces students to the principles of event-driven sensing and neuromorphic computing — a paradigm shift in how machines perceive and process the world.
 
 By the end of this series, you will be able to:
 
@@ -23,7 +23,7 @@ By the end of this series, you will be able to:
 
 ## 🔬 The NPC Lab at CTU Prague
 
-The **Neuroinspired Perception and Cognition (NPC) Lab**, led by [Prof. Giulia D'Angelo](https://www.giuliadangelo.com/), operates within the Department of Cybernetics at CTU's Faculty of Electrical Engineering. The lab is funded through the **ENDEAVOUR Marie Skłodowska-Curie Fellowship** (2024–2026) and the **PIONEER GAČR grant** (2026–2028).
+The [**Neuroinspired Perception and Cognition (NPC) Lab**](https://giuliadangelo.github.io/html/npclab.html), led by [Assistant Professor Giulia D'Angelo](https://www.giuliadangelo.com/), operates within the Department of Cybernetics at CTU's Faculty of Electrical Engineering. The lab is funded through the **ENDEAVOUR Marie Skłodowska-Curie Fellowship** (2024–2026) and the **PIONEER GAČR grant** (2026–2028).
 
 ### Research Focus
 
@@ -115,23 +115,6 @@ The **Misha Mahowald Prize** was established in her honour to recognise outstand
 
 [![Giacomo Indiveri - Neuromorphic Engineering](https://img.youtube.com/vi/eTbd8JXcf3Y/0.jpg)](https://www.youtube.com/watch?v=eTbd8JXcf3Y&ab_channel=UCBerkeleyEvents)
 
----
-
-### Key Figures in the Field
-
-| Researcher | Affiliation | Contribution |
-|---|---|---|
-| **Carver Mead** | Caltech | Founder of neuromorphic engineering; analog VLSI neural circuits |
-| **Misha Mahowald** | Caltech | First silicon retina; stereoscopic silicon vision |
-| **Tobi Delbruck** | INI Zurich / ETH | Event-based cameras; DVS sensor design |
-| **Kwabena Boahen** | Stanford | Brains in Silicon project; silicon neurons |
-| **Giacomo Indiveri** | INI Zurich / ETH | Neuromorphic chips; real-time sensory hardware |
-| **Shih-Chii Liu** | INI Zurich / ETH | Spike-based computation; audio sensing |
-| **Steve Furber** | University of Manchester | SpiNNaker massively parallel neuromorphic platform |
-| **Karlheinz Meier** *(1955–2018)* | Heidelberg | BrainScaleS; co-founder of European neuromorphic hardware |
-| **Chris Eliasmith** | University of Waterloo | Centre for Theoretical Neuroscience; NEF framework |
-
----
 
 ## 📷 What Are Event-Based Cameras?
 
@@ -173,7 +156,7 @@ Event-based cameras mimic the initial layers of the mammalian retina, reacting t
 
 ![bm](Images/bmlogo.png)
 
-Want to hear directly from the researchers shaping this field? Check out the [**Brains & Machines**](https://brainsandmachines.net/) podcast — episodes feature leading experts in neuromorphic engineering, event-based vision, and brain-inspired AI.
+Want to hear directly from the researchers shaping this field? Check out the [**Brains & Machines**](https://brainsandmachines.net/) podcast, where [Assistant Professor Giulia D'Angelo](https://www.giuliadangelo.com/) is the co-founder and co-content creator; episodes feature leading experts in neuromorphic engineering, event-based vision, and brain-inspired AI.
 
 ![bm](Images/bm.png)
 
