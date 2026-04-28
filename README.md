@@ -366,7 +366,7 @@ This tutorial implements an **Object Motion Sensitivity (OMS)** network — a bi
 
 > 💡 **Key concept:** OMS cells are modelled on retinal ganglion cells that respond selectively to objects moving differently from their background. This is directly related to the NPC Lab's work on bioinspired visual attention — see [D'Angelo et al., arXiv:2502.06747, 2025](https://arxiv.org/abs/2502.06747).
 
-**Questions:**
+**Optional Questions:**
 1. How does the difference between center and surround responses contribute to motion segmentation in the OMS network?
 
 ---
