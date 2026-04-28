@@ -194,7 +194,7 @@ Tutorial 7                SNN Object Motion Sensitivity
 
 ### Tutorial 1A — Time Window for Event-Based Data Visualisation
 
-**Script:** [`Tutorial1-EventBasedDataTimeWindow.py`](Tutorial1A-EventBasedDataTimeWindow.py)
+**Script:** [`Tutorial1A-EventBasedDataTimeWindow.py`](Tutorial1A-EventBasedDataTimeWindow.py)
 
 **Excercise:** [`Tutorial1A_Exercise.py`](Tutorial1A_Exercise.py)
 
@@ -215,7 +215,7 @@ This script introduces event-based data loading and visualisation using the `imp
 
 ### Tutorial 1B — Sliding Window for Event-Based Data Visualisation
 
-**Script:** [`Tutorial1-EventBasedDataSlidingWindow.py`](Tutorial1-EventBasedDataSlidingWindow.py)
+**Script:** [`Tutorial1B-EventBasedDataSlidingWindow.py`](Tutorial1B-EventBasedDataSlidingWindow.py)
 
 This script extends the time-window approach with a **sliding window** that continuously updates: old events are removed as new ones arrive, providing a smoothly evolving view of the scene. ON and OFF events are tracked separately.
 
@@ -228,7 +228,7 @@ This script extends the time-window approach with a **sliding window** that cont
 
 ### Tutorial 1C — Fixed Event Count for Event-Based Data Visualisation
 
-**Script:** [`Tutorial1-EventBasedDataNumberEvents.py`](Tutorial1-EventBasedDataNumberEvents.py)
+**Script:** [`Tutorial1C-EventBasedDataNumberEvents.py`](Tutorial1C-EventBasedDataNumberEvents.py)
 
 Instead of a time-based window, this script processes a **fixed number of events** per visualisation cycle, ensuring a consistent sampling rate regardless of scene activity.
 
