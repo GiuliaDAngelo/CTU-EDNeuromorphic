@@ -10,7 +10,7 @@
 
 ## 🧠 About This Course
 
-This tutorial series is part of the [**Neuroinspired Perception and Cognition (NPC) Lab**](https://giuliadangelo.github.io/html/npclab.html) teaching activities at Czech Technical University in Prague. It introduces students to the principles of event-driven sensing and neuromorphic computing — a paradigm shift in how machines perceive and process the world.
+This tutorial series is part of the [**Neuroinspired Perception and Cognition (NPC) Lab**](https://giuliadangelo.github.io/html/npclab.html) teaching activities at Czech Technical University in Prague. It introduces students to the principles of event-driven sensing and neuromorphic computing, a paradigm shift in how machines perceive and process the world.
 
 By the end of this series, you will be able to:
 
@@ -50,7 +50,7 @@ The lab is an active member of the **Open Neuromorphic** community and runs the 
 
 Robotics is entering a new era of intelligence. Traditional approaches to perception and computation are no longer sufficient to meet the demands of real-time, energy-efficient, and adaptive autonomous systems.
 
-**Event-driven sensing** and **neuromorphic computing** offer disruptive solutions to these challenges by mimicking the way biological brains perceive and process their surroundings. Unlike conventional systems that process data at fixed intervals, event-driven systems react *only when a change occurs* in the environment — just like biological sensory neurons.
+**Event-driven sensing** and **neuromorphic computing** offer disruptive solutions to these challenges by mimicking the way biological brains perceive and process their surroundings. Unlike conventional systems that process data at fixed intervals, event-driven systems react *only when a change occurs* in the environment, just like biological sensory neurons.
 
 ```
 Traditional camera:          Event-based camera:
@@ -164,7 +164,7 @@ Want to hear directly from the researchers shaping this field? Check out the [**
 
 ## 📑 Lecture Slides
 
-Full lecture slides: [CTU — Neuromorphic Sensing and Computing](CTULectureGiuliaDAngelo.pdf)
+Full lecture slides: [CTU — Neuromorphic Sensing and Computing](https://campuscvut-my.sharepoint.com/:p:/g/personal/dangegiu_cvut_cz/IQBL2wrna3ocSqEVB-bG0LNMARzoThHMUDOr4k2heRWEOJc?e=c3r1oU)
 
 ---
 
@@ -200,7 +200,7 @@ This script introduces event-based data loading and visualisation using the `imp
 
 > 💡 **Key concept:** A fixed time window captures all events that occur within a defined interval [t, t+Δt]. This is the simplest way to batch asynchronous events for visualisation or processing.
 
-**Questions:**
+**Optional Questions:**
 1. How do event cameras differ from traditional frame-based cameras, and what advantages do they provide for fast-moving scenes?
 2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
 3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
@@ -215,7 +215,7 @@ This script extends the time-window approach with a **sliding window** that cont
 
 > 💡 **Key concept:** A sliding window preserves temporal continuity. Unlike the fixed window, it never "resets" — it shifts forward, always showing the most recent Δt of activity.
 
-**Questions:**
+**Optional Questions:**
 1. How does the sliding window change the way motion and scene dynamics are represented compared to a fixed window? What are the trade-offs in choosing window duration?
 
 ---
@@ -228,7 +228,7 @@ Instead of a time-based window, this script processes a **fixed number of events
 
 > 💡 **Key concept:** In low-activity scenes, a fixed event count window covers a longer time span; in high-activity scenes, it covers a shorter one. This is useful when downstream processing (e.g. a neural network) expects a fixed-size input.
 
-**Questions:**
+**Optional Questions:**
 1. How does fixed-count visualisation differ from time-based methods? What are the benefits and drawbacks for capturing dynamic scenes?
 2. What challenges arise when choosing batch size (e.g. 1000 events) in terms of responsiveness and accuracy?
 
@@ -244,7 +244,7 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 
 > 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
 
-**Questions:**
+**Optional Questions:**
 1. Experiment with different values for `user_trial` and `time_window`. How do these changes affect the visualisation and interpretation of the data?
 
 ---
@@ -265,7 +265,7 @@ dV/dt = (-(V - V_rest) + R·I(t)) / τ_m
 If V ≥ V_threshold  →  spike emitted, V reset to V_rest
 ```
 
-**Questions:**
+**Optional Questions:**
 1. How does changing the amplitude and duration of input current pulses affect the neuron's firing behaviour?
 2. What happens when you modify LIF parameters such as `Cm`, `gL`, or `VT`? Can you identify the role of each parameter?
 3. Can you introduce additional input pulses to produce a different firing rate? What does this represent biologically?
@@ -280,7 +280,7 @@ This script uses the **Sinabs** library to simulate a single LIF neuron with inj
 
 ![neuron](Images/neuronsinabs.png)
 
-**Questions:**
+**Optional Questions:**
 1. How does the membrane time constant (`tau_mem`) affect the neuron's membrane potential dynamics?
 2. What role does `torch.no_grad()` play in the simulation, and why is it used?
 
@@ -296,7 +296,7 @@ This tutorial introduces **network-level** spiking dynamics using the **Brian2**
 
 > 💡 **Key concept:** Real neural computation emerges at the *network* level — not from individual neurons. This tutorial demonstrates how collective spiking patterns arise from population dynamics, which underpins everything from sensory coding to decision-making.
 
-**Questions:**
+**Optional Questions:**
 1. How does changing the number of neurons `N` affect spiking activity and the firing rate of the network?
 2. What happens to spiking behaviour when you adjust the time constant `tau`? Experiment with 5 ms, 20 ms, and 50 ms.
 3. What would happen if you randomised the baseline potential `v0`? What might this represent biologically?
@@ -315,7 +315,7 @@ This tutorial implements a **saliency-based attention mechanism** using event-dr
 
 > 💡 **Key concept:** This tutorial connects directly to the NPC Lab's research on **active vision for robotics** — the idea that a robot should not process everything equally, but focus its limited resources on the most behaviourally relevant parts of the scene.
 
-**Questions:**
+**Optional Questions:**
 1. Why is a time window (`window_period = 100 ms`) used in the attention mechanism, and how does it affect saliency computation?
 2. What role does the `run_attention` function play in updating the saliency map, and how is the most salient location determined?
 
@@ -333,7 +333,7 @@ This tutorial builds a biologically plausible **retina model with eccentric rece
 
 **Reference:** Chessa et al., *A space-variant model for motion interpretation across the visual field*, Journal of Vision, 2016. [DOI](https://jov.arvojournals.org/article.aspx?articleid=2498961)
 
-**Questions:**
+**Optional Questions:**
 1. How does the `rescale_rho` function ensure that receptive fields are properly distributed within plot dimensions? What is the role of the nonlinearity parameter `a`?
 2. What role does the `gaussian_plot` function play in visualising receptive fields, and how does it relate to membrane potential dynamics and spike generation?
 
@@ -351,7 +351,7 @@ This tutorial implements an **Object Motion Sensitivity (OMS)** network — a bi
 
 > 💡 **Key concept:** OMS cells are modelled on retinal ganglion cells that respond selectively to objects moving differently from their background. This is directly related to the NPC Lab's work on bioinspired visual attention — see [D'Angelo et al., arXiv:2502.06747, 2025](https://arxiv.org/abs/2502.06747).
 
-**Questions:**
+**Optional Questions:**
 1. How does the difference between centre and surround responses contribute to motion segmentation in the OMS network?
 2. Why is it important to normalise the Gaussian kernels in the `gaussian_kernel` function, and how does this affect the processing of event-based frames?
 
