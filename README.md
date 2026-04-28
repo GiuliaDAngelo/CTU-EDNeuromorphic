@@ -250,7 +250,7 @@ Instead of a time-based window, this script processes a **fixed number of events
 
 ### Tutorial 2 — Loading the IBM DVS Gesture Dataset
 
-**Script:** [`Tutorial2-EventBasedData.py`](Tutorial2-EventBasedData.py)
+**Script:** [`Tutorial2-EventBasedData.py`](oldTutorial2-EventBasedData.py)
 
 This tutorial explores the **DVSGesture dataset** — a standard benchmark in neuromorphic vision. The script converts event streams into frames representing positive and negative polarities, displayed side by side for a comprehensive view of the sensor's response.
 
@@ -258,11 +258,11 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 
 > 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
 
-**Optional Questions:**
+**Question:**
 
-1. Experiment with different values for `user_trial` and `time_window`. How do these changes affect the visualisation and interpretation of the data?
+1. Try experimenting with different values for **user_trial** and **time_window**.How do these changes affect the visualization and interpretation of the data?
 
----
+
 
 ### Tutorial 3A — Play with Neurons (LIF Model)
 

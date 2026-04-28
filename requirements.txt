@@ -2,7 +2,7 @@
 
 tonic
 opencv-python
-numpy
+numpy<2.0
 brian2
 matplotlib
 torch
@@ -12,3 +12,4 @@ sinabs
 scikit-image
 torchvision
 scipy
+ipywidgets

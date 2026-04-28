@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+
 Tutorial 2 - Event-Based Data (DVSGesture)
 
 In this script, we load and visualize event-based data from the **DVSGesture** dataset using `tonic`.
@@ -18,6 +19,9 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import matplotlib
+matplotlib.use('TkAgg')  # or 'Qt5Agg'
+
 
 
 # ============================================================================
