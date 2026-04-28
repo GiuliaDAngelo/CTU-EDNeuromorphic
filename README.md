@@ -194,7 +194,9 @@ Tutorial 7                SNN Object Motion Sensitivity
 
 ### Tutorial 1A — Time Window for Event-Based Data Visualisation
 
-**Script:** [`Tutorial1-EventBasedDataTimeWindow.py`](Tutorial1-EventBasedDataTimeWindow.py)
+**Script:** [`Tutorial1-EventBasedDataTimeWindow.py`](Tutorial1A-EventBasedDataTimeWindow.py)
+
+**Excercise:** [`Tutorial1A_Exercise.py`](Tutorial1A_Exercise.py)
 
 This script introduces event-based data loading and visualisation using the `importIitYarp` function from the **Bimvee** library. Events are processed within **fixed time windows** and displayed dynamically in real time using OpenCV.
 
@@ -202,8 +204,10 @@ This script introduces event-based data loading and visualisation using the `imp
 
 > 💡 **Key concept:** A fixed time window captures all events that occur within a defined interval [t, t+Δt]. This is the simplest way to batch asynchronous events for visualisation or processing.
 
-**Optional Questions:**
-1. How do event cameras differ from traditional frame-based cameras, and what advantages do they provide for fast-moving scenes?
+**Question:**
+1. How do event cameras differ from traditional frame-based cameras, and what advantages do they provide?
+
+**Optional Questions for Brainstorming:**
 2. How might the four event attributes (x, y, t, polarity) be useful for understanding object motion? What additional processing steps could enhance this analysis?
 3. How does adjusting the time window period affect visualisation? What strategies prevent significant events from being lost in noise?
 
