@@ -52,6 +52,9 @@ matplotlib.use('TkAgg')       # Required for interactive display windows
 
 dvs_training = tonic.datasets.NMNIST(save_to='data/', train=True)
 
+## DVS Gesture dataset
+# dvs_training = tonic.datasets.DVSGesture(save_to='data/', train=True)
+
 print(f'Dataset loaded ✓')
 print(f'Sensor size:    {dvs_training.sensor_size}')
 print(f'Total samples:  {len(dvs_training)}')
@@ -67,8 +70,10 @@ print(f'Classes:        {dvs_training.classes}')
 ###       Valid range: 0 to len(dvs_training) - 1
 ###       Start with 1, then try 5, 10, 67 and compare.
 number = 1
+# user_trial = 67
 
 events, label = dvs_training[number]
+# events, label = dvs_training[user_trial]
 
 print(f'\nSample {number} loaded ✓')
 print(f'Digit label:    {label}')
