@@ -173,9 +173,10 @@ Full lecture slides: [CTU — Neuromorphic Sensing and Computing](https://campus
 
 ## 📋 Google Form — Tutorial Responses
 
-Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
+#### NEUROINFORMATICS: Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
 
----
+#### HUMANOIDS: Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd8JCusPWwxqly_jD44oR1SI4IQp-HCF0QWYhSivc1Adr7LCA/viewform?usp=publish-editor)
+
 
 ## 🗂️ Tutorial Overview
 
@@ -191,7 +192,38 @@ Tutorial 6                Log-Polar Retinal Structure
 Tutorial 7                SNN Object Motion Sensitivity
 ```
 
----
+
+
+### Getting Started:
+```
+1. Clone the repository
+git clone https://github.com/GiuliaDAngelo/CTU-EDNeuromorphic.git
+cd CTU-EDNeuromorphic
+
+2. Create a virtual environment
+python -m venv .venv
+
+Activate it:
+macOS/Linux:
+source .venv/bin/activate
+Windows:
+.venv\Scripts\activate
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Download tutorial data
+- Tutorial 5 — place in data/twoobjects/:
+https://www.dropbox.com/scl/fi/bt7l382p1b7ouau5x07tb/twoobjects.npy
+
+- Tutorial 7 — place in data/evimo/:
+https://www.dropbox.com/scl/fo/g5j17yh6elrc61s66aiba/AO2lSvWa5oLlZYhc0V2CNkw
+
+5. Start with your tutorial session: 
+python Tutorial1A-EventBasedDataTimeWindow.py
+
+```
+
 
 ### Tutorial 1A — Time Window for Event-Based Data Visualisation
 
@@ -258,11 +290,11 @@ This tutorial explores the **DVSGesture dataset** — a standard benchmark in ne
 
 > 💡 **Key concept:** The DVSGesture dataset contains 11 hand gesture classes recorded under different lighting conditions. It is widely used to benchmark event-based classification algorithms.
 
-**Exercise -> TODO: compute the total number of events and the sparsity for the specific user_trial**
+**Exercise -> TODO: compute the total number of events and the sparsity for the specific user_trial (Humanoids, number)**
 
 **Question:**
 
-1. Try experimenting with different values for **user_trial** and **time_window**. How do these changes affect the visualization and interpretation of the data?
+1. Try experimenting with different values for **user_trial** (Humanoids **number**) and **time_window**. How do these changes affect the visualization and interpretation of the data?
 
 
 

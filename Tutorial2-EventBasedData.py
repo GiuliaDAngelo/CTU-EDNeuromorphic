@@ -1,115 +1,146 @@
-#!/usr/bin/env python3
-"""
+'''
+================================================================================
+Tutorial 2 — Event-Based Data Visualisation (N-MNIST Dataset)
+================================================================================
+NPC Lab — Czech Technical University in Prague
+Giulia D'Angelo | giulia.dangelo@fel.cvut.cz
 
-Tutorial 2 - Event-Based Data (DVSGesture)
+In this tutorial we load and visualise event-based data from the N-MNIST dataset.
+N-MNIST is the neuromorphic version of the classic MNIST handwritten digit dataset,
+recorded by moving a DVS camera in front of an LCD screen displaying each digit.
+It is one of the most widely used benchmarks in neuromorphic vision research and
+downloads automatically (~13 MB) on first run.
 
-In this script, we load and visualize event-based data from the **DVSGesture** dataset using `tonic`.
+We convert the raw event stream into temporal frames using a fixed time window,
+then visualise the positive (ON) and negative (OFF) polarities separately.
 
-The events are converted into frame slices over a fixed time window, then displayed as positive and negative polarities side by side.
-"""
+Each frame has shape (2, H, W):
+    frame[0] — positive events (ON,  brightness increase)
+    frame[1] — negative events (OFF, brightness decrease)
 
-# ============================================================================
-# 1. Import libraries
-# ============================================================================
-# We import `tonic` for neuromorphic datasets/transforms, `cv2` for visualization,
-# and `numpy` for array manipulation.
+--------------------------------------------------------------------------------
+HOW TO USE THIS SCRIPT
+--------------------------------------------------------------------------------
+1. On first run, tonic will automatically download N-MNIST (~13 MB) into
+   the 'data/' folder.
 
-import tonic
-import cv2
-import numpy as np
+2. Search for ### TODO and fill in the missing values.
+
+3. Run the script:
+       python Tutorial2_EventBasedData.py
+
+4. Press Q in any visualisation window to move to the next section.
+================================================================================
+'''
+
+# ── Imports ───────────────────────────────────────────────────────────────────
+
+import os
+import tonic                  # Neuromorphic datasets and event transforms
+import cv2                    # Real-time visualisation
+import numpy as np            # Array operations
+import matplotlib             # Plotting backend
 import matplotlib.pyplot as plt
-import time
-import matplotlib
-matplotlib.use('TkAgg')  # or 'Qt5Agg'
+
+matplotlib.use('TkAgg')       # Required for interactive display windows
 
 
+# ── Step 1: Load the Dataset ──────────────────────────────────────────────────
+#
+# tonic.datasets.NMNIST downloads and caches the dataset automatically.
+# Each sample is one handwritten digit recording from the DVS camera.
 
-# ============================================================================
-# 2. Load DVSGesture events
-# ============================================================================
-# We select the dataset path and load the training split.
-# Then we choose one trial (`user_trial`) to inspect.
+dvs_training = tonic.datasets.NMNIST(save_to='data/', train=True)
 
-# Step 1: Load the Events from the DVSGesture Dataset
-# Specify the path to your dataset
-path = 'data/'
-dvs_training = tonic.datasets.DVSGesture(path, train=True)
-
-# Define parameters for the event processing
-time_window = 10000  # Time window in microseconds (10 ms)
-user_trial = 1       # Index of the user trial to analyze
-
-# Load events and corresponding numpy data for the specified trial
-events, npys = dvs_training[user_trial]
+print(f'Dataset loaded ✓')
+print(f'Sensor size:    {dvs_training.sensor_size}')
+print(f'Total samples:  {len(dvs_training)}')
+print(f'Classes:        {dvs_training.classes}')
 
 
-# ============================================================================
-# 3. Convert events to frames
-# ============================================================================
-# Using `tonic.transforms.ToFrame`, events are binned into temporal slices of `time_window` microseconds.
-# This gives a sequence of frames with separate channels for positive and negative events.
+# ── Step 2: Select a Sample ───────────────────────────────────────────────────
+#
+# Each sample is one digit recording.
+# Try changing 'number' to explore different digits and subjects.
 
-# Transform events into frames using the specified time window
+### TODO: Choose a sample index to visualise.
+###       Valid range: 0 to len(dvs_training) - 1
+###       Start with 1, then try 5, 10, 67 and compare.
+number = 1
+
+events, label = dvs_training[number]
+
+print(f'\nSample {number} loaded ✓')
+print(f'Digit label:    {label}')
+print(f'Total events:   {len(events)}')
+print(f'Event dtype:    {events.dtype}')
+
+
+# ── Step 3: Convert Events to Frames ─────────────────────────────────────────
+#
+# tonic.transforms.ToFrame bins the asynchronous event stream into temporal
+# slices of duration time_window microseconds.
+# Each slice becomes one frame with two channels: ON events and OFF events.
+#
+# Smaller time_window → more frames, fewer events per frame (finer detail)
+# Larger  time_window → fewer frames, denser frames (smoother but less precise)
+
+# ### TODO: Set the time window duration in microseconds.
+# ###       Start with 10000 (= 10 ms). Then try 5000 and 20000.
+time_window = 10000  # microseconds
+
 transform = tonic.transforms.ToFrame(
     sensor_size=dvs_training.sensor_size,
-    time_window=time_window  # Convert events to frames based on the time window
+    time_window=time_window
 )
-frames = transform(events)  # Generate frames from events
+frames = transform(events)
 
-# Output the number of frames generated
-print(f"Number of frames: {len(frames)}")
+print(f'\nTime window:      {time_window} μs')
+print(f'Frames generated: {len(frames)}')
+print(f'Frame shape:      {frames[0].shape}  (channels, height, width)')
 
 
-# ============================================================================
-# 4. Visualize positive and negative polarities (Method 1: concatenated frames)
-# ============================================================================
-# In a script environment, we visualize frames using matplotlib and save or display them.
+# ── Step 4: Visualise — Side-by-Side Grayscale ────────────────────────────────
+#
+# ON and OFF event frames displayed side by side as grayscale images.
+# White pixels = events occurred, black pixels = silence.
+# Press Q to skip to the coloured visualisation.
 
-print("\nVisualizing frames (positive and negative polarities)...")
+print('\nShowing grayscale visualisation — press Q to skip...')
 
-# Create output directory for frames if desired (optional)
-import os
-os.makedirs("frames_output", exist_ok=True)
+num_frames_to_show = 200
+sample_interval    = max(1, len(frames) // num_frames_to_show)
 
-# Display a subset of frames (sampling every 10th frame for quick viewing)
 fig, ax = plt.subplots(figsize=(10, 4))
-num_frames_to_show = 10
-sample_interval = max(1, len(frames) // num_frames_to_show)  # Show ~10 frames
 
 for i in range(0, len(frames), sample_interval):
     frame = frames[i]
 
-    # Concatenate the two polarities into a single frame for visualization
-    concatenated_frame = np.hstack((
-        cv2.cvtColor(frame[0].astype(np.uint8) * 255, cv2.COLOR_GRAY2BGR),  # Positive events
-        cv2.cvtColor(frame[1].astype(np.uint8) * 255, cv2.COLOR_GRAY2BGR)   # Negative events
+    concatenated = np.hstack((
+        cv2.cvtColor(frame[0].astype(np.uint8) * 255, cv2.COLOR_GRAY2BGR),  # ON  events
+        cv2.cvtColor(frame[1].astype(np.uint8) * 255, cv2.COLOR_GRAY2BGR)   # OFF events
     ))
-
-    # Convert BGR to RGB for correct matplotlib colors
-    rgb_frame = cv2.cvtColor(concatenated_frame, cv2.COLOR_BGR2RGB)
+    rgb_frame = cv2.cvtColor(concatenated, cv2.COLOR_BGR2RGB)
 
     ax.clear()
     ax.imshow(rgb_frame)
-    ax.set_title(f'Frame {i}: Positive and Negative Polarities')
+    ax.set_title(f'Frame {i} — Digit: {label} | ON events (left)  OFF events (right)')
     ax.axis('off')
-
     plt.pause(0.1)
 
 plt.close(fig)
-print("Frame visualization complete.")
+print('Grayscale visualisation complete.')
 
 
-# ============================================================================
-# 4b. Visualize both polarities using colored dots (Method 2: scatter plot)
-# ============================================================================
+# ── Step 5: Visualise — Coloured Scatter Plot ─────────────────────────────────
+#
+# ON events in green, OFF events in red on a black background —
+# the standard colour convention in neuromorphic vision.
 
-print("\nVisualizing events as colored scatter dots...")
+print('\nShowing coloured scatter visualisation...')
 
 fig, ax = plt.subplots(figsize=(6, 6))
 fig.patch.set_facecolor('black')
-ax.set_facecolor('black')
-
-sample_interval = max(1, len(frames) // num_frames_to_show)  
 
 for i in range(0, len(frames), sample_interval):
     frame = frames[i]
@@ -117,129 +148,113 @@ for i in range(0, len(frames), sample_interval):
     ax.clear()
     ax.set_facecolor('black')
 
-    # Positive events in green.
     pos_y, pos_x = np.where(frame[0] > 0)
     if len(pos_x) > 0:
-        ax.scatter(pos_x, pos_y, c='green', s=2, label='Positive events')
+        ax.scatter(pos_x, pos_y, c='green', s=2, label='ON events')
 
-    # Negative events in red.
     neg_y, neg_x = np.where(frame[1] > 0)
     if len(neg_x) > 0:
-        ax.scatter(neg_x, neg_y, c='red', s=2, label='Negative events')
+        ax.scatter(neg_x, neg_y, c='red', s=2, label='OFF events')
 
-    ax.set_title(f'Frame {i}: Positive and Negative Events')
+    ax.set_title(f'Frame {i} — Digit: {label}', color='white')
     ax.set_xlim(0, frame.shape[2])
     ax.set_ylim(frame.shape[1], 0)
     ax.set_aspect('equal')
-    ax.legend(loc='upper right')
+    ax.legend(loc='upper right', fontsize=8)
     ax.axis('off')
-
     plt.pause(0.1)
 
 plt.close(fig)
-print("Event visualization complete.")
+print('Scatter visualisation complete.')
 
 
-# ============================================================================
-# 5. Quantitative experiment: user_trial and time_window
-# ============================================================================
-# Try experimenting with different values for `user_trial` and `time_window`.
-# How do these changes affect the visualization and interpretation of the data?
+# ── Step 6: Quantitative Comparison ──────────────────────────────────────────
+#
+# Compare how different sample indices and time windows affect the data
+# in terms of frame count, event density, and sparsity.
 
-print("\n" + "="*100)
-print("Quantitative Experiment: Comparing different (user_trial, time_window) configurations")
-print("="*100)
+print('\n' + '='*80)
+print('Quantitative comparison across configurations')
+print('='*80)
 
 test_configs = [
-    (1, 5000),
-    (1, 10000),
-    (1, 20000),
-    (5, 10000),
+    (1,  5000),
+    (1,  10000),
+    (1,  20000),
+    (5,  10000),
     (10, 10000),
 ]
 
 def compute_metrics(dataset, trial, tw):
-    """Compute quantitative metrics for a given trial and time window."""
     ev, _ = dataset[trial]
-    tr = tonic.transforms.ToFrame(
-        sensor_size=dataset.sensor_size,
-        time_window=tw
-    )
-    fr = tr(ev)
-
-    events_per_frame = fr.sum(axis=(1, 2, 3))
-    num_frames = int(len(fr))
-    total_events = int(len(ev))
-    mean_events_per_frame = float(events_per_frame.mean()) if num_frames > 0 else 0.0
-    std_events_per_frame = float(events_per_frame.std()) if num_frames > 0 else 0.0
-    non_empty_ratio = float((events_per_frame > 0).mean()) if num_frames > 0 else 0.0
-
+    fr    = tonic.transforms.ToFrame(sensor_size=dataset.sensor_size, time_window=tw)(ev)
+    epf   = fr.sum(axis=(1, 2, 3))
     return {
-        "user_trial": trial,
-        "time_window_us": tw,
-        "num_frames": num_frames,
-        "total_events": total_events,
-        "mean_events_per_frame": mean_events_per_frame,
-        "std_events_per_frame": std_events_per_frame,
-        "non_empty_frame_ratio": non_empty_ratio,
+        'sample'       : trial,
+        'time_window'  : tw,
+        'num_frames'   : len(fr),
+        'total_events' : len(ev),
+        'mean_epf'     : float(epf.mean()) if len(fr) > 0 else 0.0,
+        'std_epf'      : float(epf.std())  if len(fr) > 0 else 0.0,
+        'non_empty'    : float((epf > 0).mean()) if len(fr) > 0 else 0.0,
     }
 
-results = [compute_metrics(dvs_training, trial, tw) for trial, tw in test_configs]
+results = [compute_metrics(dvs_training, s, tw) for s, tw in test_configs]
 
-print("\nNumerical comparison across configurations:\n")
-for row in results:
-    print(
-        f"trial={row['user_trial']:>2}, tw={row['time_window_us']:>5} us | "
-        f"frames={row['num_frames']:>4}, total_events={row['total_events']:>7}, "
-        f"mean/frame={row['mean_events_per_frame']:.2f}, std/frame={row['std_events_per_frame']:.2f}, "
-        f"non_empty_ratio={row['non_empty_frame_ratio']:.2f}"
-    )
+print(f'\n{"sample":>6}  {"tw (μs)":>8}  {"frames":>6}  {"events":>8}  '
+      f'{"mean/frame":>10}  {"std/frame":>9}  {"non_empty":>9}')
+print('-' * 70)
+for r in results:
+    print(f'{r["sample"]:>6}  {r["time_window"]:>8}  {r["num_frames"]:>6}  '
+          f'{r["total_events"]:>8}  {r["mean_epf"]:>10.2f}  '
+          f'{r["std_epf"]:>9.2f}  {r["non_empty"]:>9.2f}')
 
-print("\nInterpretation hints:")
-print("- Smaller time_window -> usually more frames, fewer events per frame.")
-print("- Larger time_window  -> usually fewer frames, denser frames (more events/frame).")
-print("- Changing user_trial may change total activity and temporal dynamics.")
+print('\nInterpretation hints:')
+print('- Smaller time_window → more frames, fewer events per frame.')
+print('- Larger  time_window → fewer frames, denser frames.')
+print('- Changing sample index changes the digit and the recording dynamics.')
 
 
-# ============================================================================
-# 6. Exercise: Quantify total events and sparsity for user_trial = 67
-# ============================================================================
-# GOAL: Quantify the **total number of events** and the **sparsity** for `user_trial = 67`.
+# ── Exercise ──────────────────────────────────────────────────────────────────
 #
-# Expected Output:
-# - `total events` (integer);
-# - `sparsity (%)` in [0, 100].
+# GOAL: Compute the total number of events and the sparsity for sample index 67.
+#
+# Sparsity (%) = percentage of pixels that generated NO events across all frames.
+# A high sparsity means most of the sensor was silent — typical for event cameras.
 
-print("\n" + "="*100)
-print("EXERCISE: Compute metrics for user_trial = 67")
-print("="*100 + "\n")
+print('\n' + '='*80)
+print('Exercise — sample index 67')
+print('='*80 + '\n')
 
-# TODO: compute the total number of events and the sparsity for the specific user_trial
-user_trial = 67
-time_window_exercise = 10000
+ex_events, ex_label = dvs_training[67]
+ex_frames = tonic.transforms.ToFrame(
+    sensor_size=dvs_training.sensor_size,
+    time_window=10000
+)(ex_events)
 
-
-# Total number of events
+## TODO: Compute the total number of events for sample 67.
+##       Hint: len(ex_events)
 total_events = None
 
-# Sparsity calculation
+## TODO: Compute the sparsity as the percentage of zero pixels across all frames.
+##       Hint: sparsity = (np.sum(ex_frames == 0) / ex_frames.size) * 100
 sparsity = None
 
 if total_events is None:
-    raise NotImplementedError("Please compute the total number of events for user_trial = 67.")
+    raise NotImplementedError('TODO: compute total_events for sample 67.')
 if sparsity is None:
-    raise NotImplementedError("Please compute the sparsity (%) for user_trial = 67.")
+    raise NotImplementedError('TODO: compute sparsity (%) for sample 67.')
 
-print(f"Total number of events: {total_events}")
-print(f"Sparsity: {sparsity:.2f}%")
+print(f'Sample index:   67  (digit: {ex_label})')
+print(f'Total events:   {total_events}')
+print(f'Sparsity:       {sparsity:.2f}%')
 
 
-# ============================================================================
-# 7. Questions for further exploration
-# ============================================================================
-print("\n" + "="*100)
-print("Questions for further exploration:")
-print("="*100)
-print("1. Try experimenting with different values for **user_trial** and **time_window**.")
-print("   How do these changes affect the visualization and interpretation of the data?")
-print("\nTip: Modify the values at the beginning of this script and re-run to experiment.")
+# ── Question ──────────────────────────────────────────────────────────────────
+#
+# Try different values for 'number' and 'time_window' above, then answer:
+#
+# Q. How do changes to time_window affect the number of frames and the density
+#    of events per frame? What are the trade-offs for a real-time robot system?
+#
+# ANSWER: ???
