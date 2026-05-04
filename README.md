@@ -195,6 +195,11 @@ Tutorial 7                SNN Object Motion Sensitivity
 
 
 ### Getting Started:
+
+
+**COLAB verion of the Tutorials:** [LINK](https://drive.google.com/drive/folders/1JoURbf9NlDCHOHK3PIJ9Q1FS1pvaAvNs?usp=sharing)
+
+
 ```
 1. Clone the repository
 git clone https://github.com/GiuliaDAngelo/CTU-EDNeuromorphic.git
