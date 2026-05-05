@@ -1,104 +1,131 @@
-'''
+"""
 Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
+Sarka Liskova, sarka.liskova@fel.cvut.cz
+"""
 
-This script simulates the behavior of a Leaky Integrate-and-Fire (LIF) neuron model.
-The LIF model is a simple yet effective representation of neuronal dynamics, capturing
-essential features of spiking behavior. The simulation visualizes the neuron's membrane
-potential over time in response to an external input current composed of short pulses.
-
-'''
-
+### Task 0: Get familiar with the leaky integrate-and-fire (LIF) neuron model
+"""
+Play with the following simulation: In the code, the neuron is periodically stimulated by a current I_ext 
+of amplitude I_ext_amp, influencing the membrane potential.
+Run the simulation with I_ext_amp = 1.0, then with 3.0 and 5.0. 
+Observe the membrane potential behaviour, its growth and the exponential leaky decay towards the resting 
+potential value, when not stimulated. Notice the membrane potential dropping after crossing the firing threshold 
+back to the Reset voltage (VR) value before increasing again.
+"""
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 import matplotlib
-
-# Set the backend for Matplotlib to 'TkAgg' for interactive plotting
 matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
-
-# Define LIF parameters
-Cm = 0.74          # Membrane capacitance (uF)
-gL = 0.1           # Leak conductance (mS)
-VL = -65.0         # Resting potential (mV)
-VT = -50.0         # Threshold voltage (mV)
-VR = -70.0         # Reset voltage (mV)
-Rm = 1 / gL        # Membrane resistance (MΩ)
-tau_m = Cm / gL   # Membrane time constant (ms)
+# LIF parameters
+Cm = 0.74
+gL = 0.1
+VL = -65.0
+VT = -50.0
+VR = -67.0
+Rm = 1 / gL
+tau_m = Cm / gL
 
 # Time parameters
-dt = 0.2           # Time step (ms)
-T = 200            # Total simulation time (ms)
-time = np.arange(0, T, dt)  # Create a time array
+dt = 0.2
+T = 100
+time = np.arange(0, T, dt)
 
 # Define input current
-I_ext = np.zeros_like(time)  # Initialize external current array
-pulse_times = np.arange(20, T, 40)  # Define pulse start times
+I_ext_amp = 1.0
+I_ext = np.zeros_like(time)
+pulse_times = [5, 60]
 for t in pulse_times:
-    I_ext[int(t/dt):int((t+10)/dt)] = 2.0  # Create short pulses of current
+    I_ext[int(t/dt):int((t+10)/dt)] = I_ext_amp
 
 # Initialize membrane potential
-V = np.zeros_like(time)  # Membrane potential array
-V[0] = VL  # Set initial potential to resting potential
+V = np.zeros_like(time)
+V[0] = VL
+display_V = V.copy()
 
-# Simulate LIF neuron dynamics
-for i in range(1, len(time)):
-    # Calculate change in membrane potential (dV/dt) based on leak and input current
-    dVdt = ((VL - V[i-1]) + Rm * I_ext[i]) / tau_m
-    V[i] = V[i-1] + dVdt * dt  # Update membrane potential using Euler's method
+# Create figure
+fig, ax = plt.subplots(
+    3, 1, figsize=(16, 8), sharex=True, gridspec_kw={'height_ratios': [2, 2, 1]}
+)
 
-    # Check if the potential exceeds the threshold to generate a spike
-    if V[i] >= VT:
-        V[i] = VT + 5  # Simulate spike peak by temporarily exceeding threshold
-        if i + 1 < len(time):
-            V[i + 1] = VR  # Reset potential after spike
-
-# Create animation of the simulation
-fig, ax = plt.subplots(2, 1, figsize=(16, 10), sharex=True)
-
-# Plot membrane potential
 ax[0].set_xlim(0, T)
-ax[0].set_ylim(min(V) - 5, max(V) + 5)
-ax[0].set_ylabel("Membrane Potential (mV)", fontsize=20)
+ax[0].set_ylim(-0.5, max(I_ext) + 0.5)
+ax[0].set_ylabel("Input Current I(uA)", fontsize=12)
 ax[0].set_title("LIF Neuron Simulation", fontsize=20)
+line_I, = ax[0].plot([], [], lw=2, color='gold', label="Input Current (I_ext)")
+ax[0].legend(fontsize=12, loc='upper left', bbox_to_anchor=(1.02, 1))
 
-# Add lines for threshold and resting potentials
-ax[0].axhline(y=VT, color='r', linestyle='--', label=f"Threshold ($V_T$ = {VT} mV)")
-ax[0].axhline(y=VL, color='b', linestyle='--', label=f"Resting Potential ($V_L$ = {VL} mV)")
-
-# Plot input current
 ax[1].set_xlim(0, T)
-ax[1].set_ylim(0, max(I_ext) + 0.5)
-ax[1].set_xlabel("Time (ms)", fontsize=20)
-ax[1].set_ylabel("Input Current (I_ext)", fontsize=20)
+ax[1].set_ylim(-70, -40)
+ax[1].set_ylabel("Membrane Potential (mV)", fontsize=12)
+ax[1].axhline(y=VT, color='coral', linestyle='--', label=f"Threshold (VT = {VT} mV)")
+ax[1].axhline(y=VL, color='cornflowerblue', linestyle='--', label=f"Resting Potential (VL = {VL} mV)")
+line_V, = ax[1].plot([], [], lw=2, color='royalblue', label="Membrane Potential (V)")
+ax[1].legend(fontsize=12, loc='upper left', bbox_to_anchor=(1.02, 1))
 
-# Initialize line objects for animation
-line_V, = ax[0].plot([], [], lw=2, label="Membrane Potential ($V$)")
-line_I, = ax[1].plot([], [], lw=2, color='orange', label="Input Current ($I_{\text{ext}}$)")
+ax[2].set_xlim(0, T)
+ax[2].set_ylim(0.8, 1.2)
+ax[2].set_xlabel("Time (ms)", fontsize=12)
+ax[2].set_ylabel("Spike Output", fontsize=12)
+ax[2].set_yticks([])
+ax[2].axhline(y=1.0, color='k', linestyle='-')
+line_spikes, = ax[2].plot([], [], 'k|', markersize=30, label="Spikes")
+ax[2].legend(fontsize=12, loc='upper left', bbox_to_anchor=(1.02, 1))
 
-def init():
-    """Initialize the animation lines."""
-    line_V.set_data([], [])
-    line_I.set_data([], [])
-    return line_V, line_I
-
-def update(frame):
-    """Update the animation for each frame."""
-    line_V.set_data(time[:frame], V[:frame])  # Update membrane potential line
-    line_I.set_data(time[:frame], I_ext[:frame])  # Update input current line
-    return line_V, line_I
-
-# Create the animation without 'blit' for TkAgg compatibility
-ani = animation.FuncAnimation(fig, update, frames=len(time), init_func=init, interval=20)
-
-# Add legends to each subplot for clarity
-ax[0].legend(loc="best", fontsize=20)
-ax[1].legend(loc="best", fontsize=20)
-
-# Set font size for tick marks
+spike_times = []
+plt.tight_layout(rect=[0.1, 0, 0.95, 1])
 for axis in ax:
-    axis.tick_params(axis='both', which='major', labelsize=20)
+    axis.tick_params(axis='both', which='major', labelsize=10)
 
-# Display the plot
+plt.ion()
 plt.show()
-plt.pause(0.001)
+
+# Simulation loop
+for i in range(1, len(time)):
+    dVdt = ((VL - V[i-1]) + Rm * I_ext[i]) / tau_m
+    V[i] = V[i-1] + dVdt * dt
+    display_V[i] = V[i]
+    fired = False
+
+    if V[i] >= VT:
+        V[i] = VR
+        display_V[i] = VT
+        fired = True
+        if i + 1 < len(time):
+            V[i + 1] = VR
+
+    if fired:
+        spike_times.append(time[i])
+
+    line_I.set_data(time[:i + 1], I_ext[:i + 1])
+    line_spikes.set_data(spike_times, np.ones(len(spike_times)))
+    line_V.set_data(time[:i + 1], display_V[:i + 1])
+
+    fig.canvas.draw()
+    fig.canvas.flush_events()
+    plt.pause(0.001)
+
+plt.ioff()
+plt.show(block=True)
+
+"""
+Additional exploration prompt:  
+What happens if you modify the LIF parameters, such as Cm, gL, or VT? 
+Experiment by increasing or decreasing these values and observe how the membrane potential and spiking behavior change in the animation. 
+"""
+
+###__________________________________________________________________________________________
+### Task 2: Find the minimum firing current.
+"""
+Now, let's consider a constant current I_ext input instead of the pulsed one.
+Find the minimal constant current I_min which causes the neuron to fire at least once.
+
+LIF Neuron equation:
+  tau_m * dV(t)/dt = (V_L - V(t)) + R_m * I_ext(t)
+
+Hint: With constant current dV(t)/dt = 0, spiking condition: V(t) = V_T (threshold).
+"""
+
+#TODO solve for I_min here
+I_min = None
+print(f"Minimum input current required to reach threshold: {I_min:.2f} uA")

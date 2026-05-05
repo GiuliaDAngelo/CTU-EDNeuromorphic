@@ -1,9 +1,7 @@
-'''
+"""
 Giulia D'Angelo, giulia.dangelo@fel.cvut.cz
-
-This script creates a single neuron and injects it with current to see the membrane potential dynamics.
-From sinabs documentation.
-'''
+Sarka Liskova, sarka.liskova@fel.cvut.cz
+"""
 
 import os
 import torch
@@ -13,54 +11,69 @@ import numpy as np
 import matplotlib
 matplotlib.use('qt5agg')
 
+### Task 0: Simulate a single neuron in sinabs
+"""
+This script creates a LIF neuron using the sinabs library and stimulates it with constant current.   
+Run the script explore the resulting membrane potential dynamic behaviour.
+"""
+
 # Length of the stimulation
 lenstim = 100
+tau_mem = 1.0     # Membrane time constant
 
-# Create a tensor of ones with shape (1, lenstim, 1) to represent the input current
-ts = torch.zeros(1, lenstim, 1) + 1
+# Create a neuron using the LIF() class
+neuron = sl.LIF(tau_mem=tau_mem)  # Initialize the LIF neuron with a given membrane time constant
+neuron.reset_states()
 
-# Initialize arrays for x, y, and p coordinates (all zeros)
-x = np.zeros(lenstim).astype(int)
-y = np.zeros(lenstim).astype(int)
-p = np.zeros(lenstim).astype(int)
+# Input current: shape (batch=1, time=lenstim, neurons=1)
+ts = torch.ones(1, lenstim, 1)
 
-# Define a class for Receptive Fields (RFs) with a Leaky Integrate-and-Fire (LIF) neuron
-class RFs:
-    def __init__(self, tau_mem):
-        self.neuron = sl.LIF(tau_mem=tau_mem)  # Initialize the LIF neuron with a given membrane time constant
-        self.vmem = []  # List to store membrane potential values
-
-# Define the dimensions of the neuron layer
-width = 2
-height = 2
-num_neurons = width * height
-
-# Membrane time constant
-tau_mem = 1
-
-# Create a layer of RFs neurons
-neurons = [[RFs(tau_mem=tau_mem) for _ in range(width)] for _ in range(height)]
-
-# Output spike raster
+vmem = []
 spike_train = []
+spike_times = []
 
-# Iterate over the time steps to simulate the neuron dynamics
-i = 0
-for t in range(0, lenstim-1):
-    with torch.no_grad():  # Disable gradient calculation for efficiency
-        RF = neurons[y[i]][x[i]]  # Select the neuron based on the current coordinates
-        out = RF.neuron(ts[:, i : i + 1])  # Inject current into the neuron and get the output spikes
-        if (out != 0).any():  # Check if there is a spike
-            spike_train.append(ts.unsqueeze(dim=0))  # Record the spike
-        RF.vmem.append(RF.neuron.v_mem[0, 0])  # Record the membrane potential
-    i += 1
+with torch.no_grad():
+    for i in range(lenstim):
+        out = neuron(ts[:, i:i+1, :])          # shape (1, 1, 1)
+        spike = out.item()                     # 0.0 or >0
+        spike_train.append(spike)
+        if spike > 0:
+            spike_times.append(i)
 
-# Plot the membrane potential dynamics of the first neuron
-plt.figure()
-plt.plot(range(lenstim-1), neurons[0][0].vmem)
+        vmem.append(neuron.v_mem.item())       # membrane after this step
+
+# Plot membrane potential
+plt.figure(figsize=(8, 4))
+plt.plot(range(lenstim), vmem, label = "membrane potential", color="cornflowerblue")
+plt.plot(spike_times, np.ones(len(spike_times)), "|", markersize=12, label="spikes", color="salmon")
 plt.title("LIF membrane dynamics")
-plt.xlabel("$t$ [ms]")
-plt.ylabel("$V_{mem}$")
+plt.xlabel("t [ms]")
+plt.ylabel("V_mem")
+plt.legend(fontsize=10, loc='upper left', bbox_to_anchor=(1.02, 1))
 plt.show()
 
 print('end')
+
+### Task 1: Effects of tau_mem
+"""
+Use the previously provided script to explore how the spiking changes with change in tau_mem.  
+Start with initializing a neuron `neuron = sl.LIF(tau_mem=tau_mem, spike_threshold = 0.99)` and see how lowering the firing threshold changed the firing frequency. 
+Then add three more neurons with tau_mem values = {2.0, 5.0, 10.0} and spike_threshold = 0.99.  
+Plot all of the obtained dynamics below each other to compare.  
+
+How many times did each of the four neurons spike within the simulation window?
+"""
+
+lenstim = 100   # Length of the stimulation ms
+tau_mem = 1.0   # Membrane time constant to start with
+
+# Input current: shape (batch=1, time=lenstim, neurons=1)
+ts = torch.ones(1, lenstim, 1)
+
+# Create a neuron using the LIF() class
+neuron = sl.LIF(tau_mem=tau_mem, spike_threshold = 0.99)  # Initialize the LIF neuron with a given membrane time constant
+neuron.reset_states()
+
+# TODO
+# Add three more neurons with tau_mem values = {2.0, 5.0, 20.0}
+# and plot the resulting membrane potentials together to see the effect of tau_mem on the membrane dynamics.
