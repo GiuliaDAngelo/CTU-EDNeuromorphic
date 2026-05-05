@@ -175,8 +175,7 @@ Full lecture slides: [CTU — Neuromorphic Sensing and Computing](https://campus
 
 #### NEUROINFORMATICS: Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSdHDWT7G6PXqij7RC-u5i5JShtmrDN7Okj_UKvkxoKJ2X0xDw/viewform?usp=dialog)
 
-#### HUMANOIDS: Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd8JCusPWwxqly_jD44oR1SI4IQp-HCF0QWYhSivc1Adr7LCA/viewform?usp=publish-editor)
-
+#### HUMANOIDS: Please submit your tutorial answers here: [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd8JCusPWwxqly_jD44oR1SI4IQp-HCF0QWYhSivc1Adr7LCA/viewform?usp=publish-editor) 
 
 ## 🗂️ Tutorial Overview
 
@@ -197,7 +196,7 @@ Tutorial 7                SNN Object Motion Sensitivity
 ### Getting Started:
 
 
-**COLAB verion of the Tutorials:** [LINK](https://drive.google.com/drive/folders/1JoURbf9NlDCHOHK3PIJ9Q1FS1pvaAvNs?usp=sharing)
+**COLAB version of the Tutorials:** [__Google Drive__](https://drive.google.com/drive/folders/1JoURbf9NlDCHOHK3PIJ9Q1FS1pvaAvNs?usp=sharing)
 
 
 ```
