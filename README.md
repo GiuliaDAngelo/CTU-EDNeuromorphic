@@ -325,7 +325,6 @@ If V ≥ V_threshold  →  spike emitted, V reset to V_rest
 **Optional Questions:**
 1. How does changing the amplitude and duration of input current pulses affect the neuron's firing behaviour?
 2. What happens when you modify LIF parameters such as `Cm`, `gL`, or `VT`? Can you identify the role of each parameter?
-3. Can you introduce additional input pulses to produce a different firing rate? What does this represent biologically?
 
 ---
 
