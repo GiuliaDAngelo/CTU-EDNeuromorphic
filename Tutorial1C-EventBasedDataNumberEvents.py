@@ -35,7 +35,7 @@ matplotlib.use('TkAgg')  # Required for interactive OpenCV windows
 
 width          = 304                             # DVS camera width  (pixels)
 height         = 240                             # DVS camera height (pixels)
-num_events     = 1000                             # Number of events per frame
+num_events     = 100                             # Number of events per frame
 camera_events  = 'right'                         # Camera stream to visualise
 codec          = '24bit'                         # Event data encoding format
 filePathOrName = 'data/attention-multiobjects/'  # Path to the dataset

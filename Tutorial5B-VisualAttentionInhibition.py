@@ -56,7 +56,7 @@ def run_attention_inhibition_of_return(window, net, device, resolution, num_pyr,
         0)
     
     #TODO  Mask out the saliency map (= 0) to ignore already visited locations
-    
+    cv2.circle
     salmax_coords = np.unravel_index(torch.argmax(salmap).cpu().numpy(), salmap.shape)
     # normalise salmap for visualization
     salmap = salmap.detach().cpu().numpy()
@@ -107,7 +107,7 @@ for xi, yi, pi, ti in zip(x, y, p, t):
         # TODO: Here use the run_attention_inhibition_of_return(window, net_attention, device, resolution,
         #                                   config.ATTENTION_PARAMS['num_pyr'], visited_locations)
         #      function instead of run_attention()
-        # saliency_map[:], salmax_coords[:] = pass
+        # saliency_map[:], salmax_coords[:] = HERE
        
         # Apply a color map to the window for better visualization
         window_map_jet = cv2.applyColorMap(window.detach().cpu().numpy().squeeze(0).astype(np.uint8), cv2.COLORMAP_JET)

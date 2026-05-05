@@ -43,7 +43,7 @@ matplotlib.use('TkAgg')
 
 width          = 304
 height         = 240
-window_period  = 350                             # ms — try changing this!
+window_period  = 50                             # ms — try changing this!
 camera_events  = 'right'
 codec          = '24bit'
 filePathOrName = 'data/attention-multiobjects/'

@@ -35,7 +35,7 @@ matplotlib.use('TkAgg')  # Required for interactive OpenCV windows
 
 width          = 304                             # DVS camera width  (pixels)
 height         = 240                             # DVS camera height (pixels)
-window_period  = 350                             # Time window duration (ms)
+window_period  = 50                             # Time window duration (ms)
 camera_events  = 'right'                         # Camera stream to visualise
 codec          = '24bit'                         # Event data encoding format
 filePathOrName = 'data/attention-multiobjects/'  # Path to the dataset

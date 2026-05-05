@@ -35,7 +35,7 @@ matplotlib.use('TkAgg')  # Required for interactive OpenCV windows
 width                = 304    # DVS camera width  (pixels)
 height               = 240    # DVS camera height (pixels)
 initial_window_period = 100   # Initial time window size (ms)
-sliding_wdw          = 10     # Step size the window advances each update (ms)
+sliding_wdw          = 100     # Step size the window advances each update (ms)
 time_buff            = sliding_wdw  # Internal buffer — initialised to sliding_wdw
 
 camera_events        = 'right'                        # Camera stream to visualise
