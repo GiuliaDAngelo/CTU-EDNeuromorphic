@@ -318,11 +318,24 @@ dV/dt = (-(V - V_rest) + R·I(t)) / τ_m
 If V ≥ V_threshold  →  spike emitted, V reset to V_rest
 ```
 
+**Question:**
+
+1. Find the minimal constant current  𝐼𝑚𝑖𝑛  which causes the neuron to fire at least once.
+
 **Optional Questions:**
 1. How does changing the amplitude and duration of input current pulses affect the neuron's firing behaviour?
 2. What happens when you modify LIF parameters such as `Cm`, `gL`, or `VT`? Can you identify the role of each parameter?
 3. Can you introduce additional input pulses to produce a different firing rate? What does this represent biologically?
 
+---
+
+### Tutorial 3A — Play with the refractory period
+
+**Script:** [`Tutorial3A-Neurons_refractory.py`](Tutorial3A-Neurons_refractory.py)
+
+**Questions:**
+
+1. What is the difference in the spike rates with and without refractory period for  𝐼𝑒𝑥𝑡=18   𝜇𝐴 ?
 ---
 
 ### Tutorial 3B — Play with the Sinabs Library
@@ -332,6 +345,10 @@ If V ≥ V_threshold  →  spike emitted, V reset to V_rest
 This script uses the **Sinabs** library to simulate a single LIF neuron with injected current, based on the [Sinabs documentation](https://sinabs.ai/).
 
 ![neuron](Images/neuronsinabs.png)
+
+**Question:**
+
+1. How many times did each of the four neurons spike within the simulation window?
 
 **Optional Questions:**
 1. How does the membrane time constant (`tau_mem`) affect the neuron's membrane potential dynamics?
