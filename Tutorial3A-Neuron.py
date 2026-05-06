@@ -18,17 +18,17 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 # LIF parameters
-Cm = 0.74
-gL = 0.1
-VL = -65.0
-VT = -50.0
-VR = -67.0
-Rm = 1 / gL
-tau_m = Cm / gL
+Cm = 0.74          # Membrane capacitance (uF)
+gL = 0.1           # Leak conductance (mS)
+VL = -65.0         # Resting potential (mV)
+VT = -50.0         # Threshold voltage (mV)
+VR = -67.0         # Reset voltage (mV)
+Rm = 1 / gL        # Membrane resistance (MΩ)
+tau_m = Cm / gL    # Membrane time constant (ms)
 
 # Time parameters
-dt = 0.2
-T = 100
+dt = 0.2           # Time step (ms)
+T = 100            # Total simulation time (ms)
 time = np.arange(0, T, dt)
 
 # Define input current
